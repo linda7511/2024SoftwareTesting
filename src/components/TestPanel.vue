@@ -64,10 +64,16 @@
         <template #header>
           Program Test
         </template>
-        <p class="subtitle">Step 01. 选择程序版本</p>
+        <p class="subtitle">Step 01. 选择被测程序</p>
         <n-space vertical>
-          <n-select class="cascader-input" v-model:value="version" :options="props.versions"
-            placeholder="Click to select" @update:value="handleVersionSelect" />
+          <!-- <n-select class="cascader-input" v-model:value="version" :options="props.versions"
+            placeholder="Click to select" @update:value="handleVersionSelect" /> -->
+          <n-upload accept=".js" :max="1" @change="handleFileChange">
+            <n-button>
+              <n-icon name="upload"></n-icon>
+              上传.js文件
+            </n-button>
+          </n-upload>
         </n-space>
         <p class="subtitle">Step 02. 选择用例集</p>
         <n-space vertical>
@@ -94,7 +100,7 @@
         </n-space>
         <p class="subtitle">Step 04. 运行测试集</p>
         <n-space justify="center">
-          <n-button class="upload-btn" :disabled="!((fileListLength || usecaseType) && version)" @click="handleTesting"
+          <n-button class="upload-btn" :disabled="!((fileListLength || usecaseType) && file)" @click="handleTesting"
             strong type="primary">
             开始测试
           </n-button>
@@ -126,6 +132,7 @@ import {
 } from 'echarts/components'
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
+import { getRect } from 'naive-ui/es/affix/src/utils'
 
 
 const props = defineProps<{
@@ -222,9 +229,80 @@ const composables = import.meta.glob('../composables/*.ts')
 const code = props.code,
   options = ref<CascaderOption[]>(props.options)
 
+const file = ref(null);
 const version = ref(null)
 
 const usecaseType = ref(null)
+
+const handleFileChange = async (data: {
+        file: UploadFileInfo
+        fileList: UploadFileInfo[]
+      }) => {
+  console.log(data.file);
+  if (!data.file) return; // 如果文件不存在，直接返回
+  const reader = new FileReader(); // 创建一个文件读取器
+  reader.onload = async (event: ProgressEvent<FileReader>) => {
+    console.log("reading");
+    if (!event.target) return; // 如果事件目标不存在，直接返回
+    
+    const contents = event.target.result; // 获取文件内容
+    // 解析文件内容，假设文件内容为纯文本格式
+    const functions = parseFunctions(contents);
+
+    // 检查是否解析到了函数
+    if (functions.length < 2) {
+        alert('上传的文件不包含足够的函数');
+        return;
+    }
+    // console.log(functions);
+    // 将第一个解析到的函数赋值给 composable
+    composable = functions[0].func;
+
+    // 将第二个解析到的函数赋值给 getArgs
+    getArgs = functions[1].func;
+    // console.log(getArgs);
+    // let test1 = composable(1,1,1);
+    // console.log(test1);
+    // let test2 = getArgs({ Edge1: '1', Edge2: '1', Edge3: '1' });
+    // console.log(test2);
+    // const script = new Function(contents as string); // 将文件内容转换为函数
+    // // 检查函数是否符合预期，比如是否为一个函数
+    // if (typeof script !== 'function') {
+    //   alert('上传的文件不包含函数');
+    //   return;
+    // }
+    // // 将函数赋值给composable变量
+    // composable = script;
+    // // 这里可以执行其他操作，比如调用composable函数进行验证或其他逻辑
+    // // 例如：composable();
+    alert('文件上传成功，函数已经赋值给composable变量');
+    file.value=data.file;
+  };
+
+    // 读取文件内容
+    reader.readAsText(data.file.file);
+};
+
+// 解析文件内容中的函数
+function parseFunctions(contents: string): Function[] {
+  const functionRegex = /function\s+(\w+)\s*\(([^)]*)\)\s*{([^]*?)}\s*(?=(?:function|$))/g;
+    const functions = [];
+    let match;
+    let lastIndex = 0;
+    while ((match = functionRegex.exec(contents)) !== null) {
+        const [, functionName, params, body] = match;
+        const func = new Function(params, body);
+        functions.push({ name: functionName, func });
+        lastIndex = functionRegex.lastIndex;
+    }
+
+    // 如果有匹配到函数，且 lastIndex 不等于 contents 的长度，则说明还有剩余的内容
+    if (functions.length > 0 && lastIndex !== contents.length) {
+        console.log('还有剩余的内容');
+    }
+    
+    return functions;
+}
 
 function handleVersionSelect(value: string) {
   for (let index in composables) {
@@ -254,7 +332,7 @@ const createRows = (rawData: any[]) => {
   let data = []
   let counter = 0
   const rowNum = rawData.length
-  for (let i = 1; i < rowNum; ++i) {
+  for (let i = 1; i < rowNum-1; ++i) {
     let row: Row = { key: (counter++).toString() }
     let j = 0
     for (let item of resultColumns.value) {
@@ -273,18 +351,19 @@ const executeTesting = (dataContent: Row[]) => {
   for (let row of dataContent) {
     //console.log(getArgs)
     //console.log(composable)
+    console.log(row)
     let args = getArgs(row)
-    row.ActualOutput = composable.apply(this, args)
-    if (row.ActualOutput == null) {
+    console.log("获取到的参数："+args)
+    row.实际输出 = composable.apply(this, args)
+    if (row.实际输出 == null) {
       nullAnsNum++
     }
-    row.TesterName = `RQD、fuyang`
-    let myTime = new Date()
-    row.Time = myTime.toLocaleString()
-    if (row.ActualOutput === row.ExpectedOutput) {
-      row.Correctness = `TRUE`
+    // let myTime = new Date()
+    // row.Time = myTime.toLocaleString()
+    if (row.实际输出 === row.预期输出) {
+      row.是否通过 = `TRUE`
     } else {
-      row.Correctness = `FALSE`
+      row.是否通过 = `FALSE`
       falseNum++
     }
     //console.log(row)
@@ -302,13 +381,30 @@ function handleUpload(options: { fileList: string | any[] }) {
   fileListLength.value = options.fileList.length;
   if (fileListLength.value !== 0) {
     // 获取手动上传的.csv文件对象,转化为数组
-    //console.log(options.fileList[0].file)
-    Papa.parse(options.fileList[0].file, {
-      complete: (res) => {
-        fileData.value = res.data
-        //console.log(fileData.value)
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target && event.target.result) {
+        const encodedContent = event.target.result;
+        const decoder = new TextDecoder('gbk'); // 请根据实际情况选择文件的编码
+        const utf8Content = decoder.decode(encodedContent);
+        Papa.parse(utf8Content, {
+          complete: (res) => {
+            fileData.value = res.data
+            //console.log(fileData.value)
+          }
+        });
+        console.log(fileData.value)
       }
-    })
+    };
+    reader.readAsArrayBuffer(options.fileList[0].file);
+   
+    // Papa.parse(options.fileList[0].file, {
+    //   complete: (res) => {
+    //     fileData.value = res.data
+    //     //console.log(fileData.value)
+    //   },
+    //   encoding: 'utf-8'// 指定字符编码为 UTF-8
+    // })
   } else {
     fileData.value = null
   }

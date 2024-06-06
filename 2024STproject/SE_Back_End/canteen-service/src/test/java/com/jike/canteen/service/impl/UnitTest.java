@@ -1,0 +1,691 @@
+package com.jike.canteen.service.impl;
+
+import com.jike.canteen.controller.CombinedController;
+import com.jike.canteen.domain.dto.*;
+import com.jike.canteen.service.IBookService;
+import com.jike.canteen.service.IMyOrderService;
+import com.jike.canteen.service.IMyTableService;
+import com.jike.common.utils.ResponseResult;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
+import com.jike.canteen.service.IDishService;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import io.qameta.allure.Step;
+
+@Transactional
+@Rollback
+@SpringBootTest
+public class UnitTest {
+
+    @Autowired
+    private IDishService dishService;
+    @Autowired
+    private IBookService bookService;
+    @Autowired
+    private CombinedController combinedController;
+    @Autowired
+    private IMyOrderService myOrderService;
+    @Autowired
+    private IMyTableService myTableService;
+
+
+    @Step("测试删除存在的菜品 [{dishId}]")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishDeleteSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试删除存在的菜品")
+    public void deleteDishById_Success(int dishId) {
+        ResponseResult<Void> response = combinedController.deleteDishById(dishId);
+        assertEquals("成功删除", response.getMessage());
+    }
+
+    @Step("测试删除不存在的菜品 [{dishId}]")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishDeleteF1.csv", numLinesToSkip = 1)
+    @DisplayName("删除菜品失败，菜品不存在")
+    public void deleteDishById_F1(int dishId) {
+        ResponseResult<Void> response = combinedController.deleteDishById(dishId);
+        assertEquals("删除菜品失败", response.getMessage());
+    }
+
+    @Step("测试删除存在外键约束的菜品 [{dishId}]")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishDeleteF2.csv", numLinesToSkip = 1)
+    @DisplayName("删除菜品失败，存在外键约束")
+    public void deleteDishById_F2(int dishId) {
+        ResponseResult<Void> response = combinedController.deleteDishById(dishId);
+        assertEquals("删除菜品失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishUpdateSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试更新菜品成功")
+    public void updateDish(int dishId, String dishName, double dishPrice, String dishTaste) {
+        DishDTO dishDTO = new DishDTO();
+        dishDTO.setDishId(dishId);
+        dishDTO.setDishName(dishName);
+        dishDTO.setDishPrice(dishPrice);
+        dishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.updateDish(dishDTO);
+        assertEquals("修改成功", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishUpdateF1.csv", numLinesToSkip = 1)
+    @DisplayName("更新菜品失败，参数为空")
+    public void updateDish_f1(Integer dishId, String dishName, Double dishPrice, String dishTaste) {
+        DishDTO dishDTO = new DishDTO();
+        dishDTO.setDishId(dishId!=null?dishId:0);
+        dishDTO.setDishName(dishName);
+        dishDTO.setDishPrice(dishPrice!=null?dishPrice:0.0);
+        dishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.updateDish(dishDTO);
+        assertEquals("修改失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishUpdateF2.csv", numLinesToSkip = 1)
+    @DisplayName("更新菜品失败，菜品价格非法")
+    public void updateDish_f2(int dishId, String dishName, double dishPrice, String dishTaste) {
+        DishDTO dishDTO = new DishDTO();
+        dishDTO.setDishId(dishId);
+        dishDTO.setDishName(dishName);
+        dishDTO.setDishPrice(dishPrice);
+        dishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.updateDish(dishDTO);
+        assertEquals("修改失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishAddSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加菜品成功")
+    public void addDish_Success(String dishName, double dishPrice, String dishTaste) {
+        NewDishDTO newDishDTO = new NewDishDTO();
+        newDishDTO.setDishName(dishName);
+        newDishDTO.setDishPrice(dishPrice);
+        newDishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.addDish(newDishDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishAddF1.csv", numLinesToSkip = 1)
+    @DisplayName("添加菜品失败，参数为空")
+    public void addDish_F1(String dishName, Double dishPrice, String dishTaste) {
+        NewDishDTO newDishDTO = new NewDishDTO();
+        newDishDTO.setDishName(dishName);
+        newDishDTO.setDishPrice(dishPrice!=null?dishPrice:0.0);
+        newDishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.addDish(newDishDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/DishAddF2.csv", numLinesToSkip = 1)
+    @DisplayName("添加菜品失败，菜品价格非法")
+    public void addDish_F2(String dishName, double dishPrice, String dishTaste) {
+        NewDishDTO newDishDTO = new NewDishDTO();
+        newDishDTO.setDishName(dishName);
+        newDishDTO.setDishPrice(dishPrice);
+        newDishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.addDish(newDishDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+
+
+
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookAddSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加预订信息成功")
+    public void addBookInfo_Success(int tableId,int customerId,LocalDateTime bookTime,int bookNumber,
+                                    String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId);
+        bookDTO.setCustomerId(customerId);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookAddF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加预订信息失败，参数为空")
+    public void addBookInfo_F1(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                                    String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookAddF2.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加预订信息失败，外键不存在")
+    public void addBookInfo_F2(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                               String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId);
+        bookDTO.setCustomerId(customerId);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookAddF3.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加预订信息失败，bookstatus非法")
+    public void addBookInfo_F3(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                               String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId);
+        bookDTO.setCustomerId(customerId);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookAddF4.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加预订信息失败，booknumber非法")
+    public void addBookInfo_F4(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                               String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId);
+        bookDTO.setCustomerId(customerId);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+
+
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookUpdateF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息失败，主键冲突")
+    public void updateBookInfo_f1(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                                  String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookUpdateF2.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息失败，bookStatus非法")
+    public void updateBookInfo_f2(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                                  String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookUpdateF3.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息失败，参数为空")
+    public void updateBookInfo_f3(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                                  String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookUpdateF4.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息失败，booknumber非法")
+    public void updateBookInfo_f4(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                                  String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookUpdateSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息成功")
+    public void updateBookInfo_success(Integer tableId,Integer customerId,LocalDateTime bookTime,Integer bookNumber,
+                                  String bookStatus,String bookRequement,String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改成功", updateResponse.getMessage());
+    }
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookDeleteSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息成功")
+    public void deleteBookInfo_success(Integer tableId,Integer customerId) {
+        ResponseResult<?> deleteResponse = bookService.deleteBookInfo(tableId, customerId);
+        assertEquals("预订信息删除成功", deleteResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/BookDeleteF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息失败")
+    public void deleteBookInfo_F1(Integer tableId,Integer customerId) {
+        ResponseResult<?> deleteResponse = bookService.deleteBookInfo(tableId, customerId);
+        assertEquals("找不到对应的预订信息，删除失败", deleteResponse.getMessage());
+    }
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderAddSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加订单成功")
+    public void addMyOrder_Success(int tableId,int dishId,int consumption_recordId,
+                                       LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId);
+        myOrderDTO.setDishId(dishId);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> response = myOrderService.addMyOrder(myOrderDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderAddF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加订单失败，参数为空")
+    public void addMyOrder_F1(Integer tableId,Integer dishId,Integer consumption_recordId,
+                               LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId != null ? tableId : 0);
+        myOrderDTO.setDishId(dishId != null ? dishId : 0);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> response = myOrderService.addMyOrder(myOrderDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderAddF2.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加订单失败，外键不存在")
+    public void addMyOrder_F2(Integer tableId,Integer dishId,Integer consumption_recordId,
+                              LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId);
+        myOrderDTO.setDishId(dishId);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> response = myOrderService.addMyOrder(myOrderDTO);
+        assertEquals("新增失败：外键不存在", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderAddF3.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加预订信息失败，orderstatus非法")
+    public void addMyOrder_F3(Integer tableId,Integer dishId,Integer consumption_recordId,
+                              LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId);
+        myOrderDTO.setDishId(dishId);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> response = myOrderService.addMyOrder(myOrderDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderUpdateF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改订单失败，主键冲突")
+    public void updateMyOrderInfo_f1(Integer tableId,Integer dishId,Integer consumption_recordId,
+                                     LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId != null ? tableId : 0);
+        myOrderDTO.setDishId(dishId != null ? dishId : 0);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> updateResponse = myOrderService.updateMyOrder(myOrderDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderUpdateF2.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改订单失败，orderStatus非法")
+    public void updateMyOrderInfo_f2(Integer tableId,Integer dishId,Integer consumption_recordId,
+                                     LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId != null ? tableId : 0);
+        myOrderDTO.setDishId(dishId != null ? dishId : 0);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> updateResponse = myOrderService.updateMyOrder(myOrderDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderUpdateF3.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改订单失败，参数为空")
+    public void updateMyOrderInfo_f3(Integer tableId,Integer dishId,Integer consumption_recordId,
+                                     LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId != null ? tableId : 0);
+        myOrderDTO.setDishId(dishId != null ? dishId : 0);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> updateResponse = myOrderService.updateMyOrder(myOrderDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyOrderUpdateSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改预订信息成功")
+    public void updateMyOrderInfo_success(Integer tableId,Integer dishId,Integer consumption_recordId,
+                                          LocalDateTime orderTime,String orderStatus) {
+        MyOrderDTO myOrderDTO = new MyOrderDTO();
+        myOrderDTO.setTableId(tableId != null ? tableId : 0);
+        myOrderDTO.setDishId(dishId != null ? dishId : 0);
+        myOrderDTO.setOrderTime(orderTime);
+        myOrderDTO.setConsumptionRecordId(consumption_recordId);
+        myOrderDTO.setOrderStatus(orderStatus);
+
+        ResponseResult<?> updateResponse = myOrderService.updateMyOrder(myOrderDTO);
+
+        assertEquals("修改成功", updateResponse.getMessage());
+    }
+
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableAddSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加桌位成功")
+    public void addMyTable_Success(int capacity,String tabletype,String tablelocation,
+                                   String tableStatus,String note,int bookable, int available) {
+        NewMyTableDTO NewMyTableDTO = new NewMyTableDTO();
+        NewMyTableDTO.setCapacity(capacity);
+        NewMyTableDTO.setTableType(tabletype);
+        NewMyTableDTO.setTableLocation(tablelocation);
+        NewMyTableDTO.setTableStatus(tableStatus);
+        NewMyTableDTO.setNote(note);
+        NewMyTableDTO.setBookable(bookable);
+        NewMyTableDTO.setAvailable(available);
+
+        ResponseResult<?> response = myTableService.addTable(NewMyTableDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableAddF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加桌位失败，参数为空")
+    public void addMyTable_F1(Integer capacity,String tabletype,String tablelocation,
+                              String tableStatus,String note,Integer bookable, Integer available) {
+        NewMyTableDTO NewMyTableDTO = new NewMyTableDTO();
+        NewMyTableDTO.setCapacity(capacity);
+        NewMyTableDTO.setTableType(tabletype);
+        NewMyTableDTO.setTableLocation(tablelocation);
+        NewMyTableDTO.setTableStatus(tableStatus);
+        NewMyTableDTO.setNote(note);
+        NewMyTableDTO.setBookable(bookable);
+        NewMyTableDTO.setAvailable(available);
+
+        ResponseResult<?> response = myTableService.addTable(NewMyTableDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableAddF2.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加桌位信息失败，tablestatus非法")
+    public void addMyTable_F2(Integer capacity,String tabletype,String tablelocation,
+                              String tableStatus,String note,Integer bookable, Integer available) {
+        NewMyTableDTO NewMyTableDTO = new NewMyTableDTO();
+        NewMyTableDTO.setCapacity(capacity);
+        NewMyTableDTO.setTableType(tabletype);
+        NewMyTableDTO.setTableLocation(tablelocation);
+        NewMyTableDTO.setTableStatus(tableStatus);
+        NewMyTableDTO.setNote(note);
+        NewMyTableDTO.setBookable(bookable);
+        NewMyTableDTO.setAvailable(available);
+
+        ResponseResult<?> response = myTableService.addTable(NewMyTableDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableAddF3.csv", numLinesToSkip = 1)
+    @DisplayName("测试添加桌位信息失败，tabletype非法")
+    public void addMyTable_F3(Integer capacity,String tabletype,String tablelocation,
+                              String tableStatus,String note,Integer bookable, Integer available) {
+        NewMyTableDTO NewMyTableDTO = new NewMyTableDTO();
+        NewMyTableDTO.setCapacity(capacity);
+        NewMyTableDTO.setTableType(tabletype);
+        NewMyTableDTO.setTableLocation(tablelocation);
+        NewMyTableDTO.setTableStatus(tableStatus);
+        NewMyTableDTO.setNote(note);
+        NewMyTableDTO.setBookable(bookable);
+        NewMyTableDTO.setAvailable(available);
+
+        ResponseResult<?> response = myTableService.addTable(NewMyTableDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableUpdateF1.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改桌位失败，主键冲突")
+    public void updateMyTableInfo_f1(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                     String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableUpdateF2.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改桌位失败，tablestatus非法")
+    public void updateMyTableInfo_f2(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                     String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableUpdateF3.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改桌位失败，tabletype非法")
+    public void updateMyTableInfo_f3(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                     String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableUpdateF4.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改桌位失败，参数为空")
+    public void updateMyTableInfo_f4(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                     String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/MyTableUpdateSuccess.csv", numLinesToSkip = 1)
+    @DisplayName("测试修改桌位信息成功")
+    public void updateMyTableInfo_success(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                          String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改成功", updateResponse.getMessage());
+    }
+
+    // @Step("测试删除存在的桌位 [{tableId}]")
+    // @ParameterizedTest
+    // @CsvFileSource(resources = "/TableDeleteSuccess.csv", numLinesToSkip = 1)
+    // @DisplayName("测试删除存在的桌位")
+    // public void deleteTableById_Success(int tableId) {
+    //     ResponseResult<Void> response = myTableService.deleteTableById(tableId);
+    //     assertEquals("成功删除", response.getMessage());
+    // }
+
+    @Step("测试删除不存在的桌位 [{TableId}]")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/TableDeleteF1.csv", numLinesToSkip = 1)
+    @DisplayName("删除桌位失败，桌位不存在")
+    public void deleteTableById_F1(int tableId) {
+        ResponseResult<Void> response = combinedController.deleteTableById(tableId);
+        assertEquals("删除桌位失败", response.getMessage());
+    }
+
+    @Step("测试删除存在外键约束的桌位 [{dishId}]")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/TableDeleteF2.csv", numLinesToSkip = 1)
+    @DisplayName("删除桌位失败，存在外键约束")
+    public void deleteTableById_F2(int tableId) {
+        ResponseResult<Void> response = combinedController.deleteTableById(tableId);
+        assertEquals("删除失败：该桌位存在关联订单，无法删除", response.getMessage());
+    }
+
+}

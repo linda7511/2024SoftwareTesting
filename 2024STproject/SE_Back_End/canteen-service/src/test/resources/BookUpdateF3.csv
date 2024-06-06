@@ -1,0 +1,4 @@
+tableId,customerId,bookTime,bookNumber,bookStatus,bookRequement,bookNote
+,1,2023-01-15T12:30:00,10,预订成功,无,无
+1,,2023-01-15T12:30:00,10,预订成功,无,无
+1,1,,10,预订成功,无,无

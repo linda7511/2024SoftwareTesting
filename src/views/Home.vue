@@ -1,57 +1,33 @@
 <template>
   <n-card class="home-box" content-style="padding-bottom: 0;" footer-style="margin-bottom: 0;padding-bottom: 0;">
     <n-space justify="center">
-      <n-icon class="css3-logo" size="9em" color="#5FBC21">
-        <LogoCss3 />
+      <n-icon class="logo" size="15em">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <image
+          xlink:href="../components/icons/Icon.png" 
+          x="0"  
+          y="0"  
+          width="512" 
+          height="512" 
+        />
+      </svg>
       </n-icon>
     </n-space>
     <n-space justify="center">
-      <n-p class="project-title">Libre Testing</n-p>
+      <n-p class="project-title">Bug Hunter</n-p>
     </n-space>
     <n-divider class="divider" />
     <n-space justify="center">
-      <n-p class="tech-stack" :depth="3">A Vue 3 + Vite + Naive UI Project</n-p>
-    </n-space>
-    <n-space justify="center" :size="[60, 0]">
-      <n-icon size="4em" class="vue-logo">
-        <IconVue />
-      </n-icon>
-      <div class="flex-wrapper">
-        <n-icon size="2em" :component="AddSharp" />
-      </div>
-      <n-icon size="4em">
-        <IconVite />
-      </n-icon>
-      <div class="flex-wrapper">
-        <n-icon size="2em" :component="AddSharp" />
-      </div>
-      <n-icon size="4em">
-        <IconNaiveUi />
-      </n-icon>
+      <n-p class="tech-stack" :depth="3">同济大学软件学院2024软件测试课程作业</n-p>
     </n-space>
     <n-space justify="center">
-      <n-p class="intro">Automated Software Testing, Simple and Easy to Use</n-p>
+      <n-p class="intro">一个自动化软件测试工具</n-p>
     </n-space>
-    <n-space justify="center">
-      <n-p class="try" :depth="3">Have a Try</n-p>
-    </n-space>
-    <template #footer>
-      <section class="flex-column">
-        <n-p :depth="3">
-          © 2022 LibreTest, Inc.
-        </n-p>
-        <a class="icp" href="http://beian.miit.gov.cn/" target="_blank">蜀ICP备2022009593号-1</a>
-      </section>
-    </template>
   </n-card>
 </template>
 
 <script setup lang="ts">
 import { NIcon, NCard, NSpace, NP, NDivider } from 'naive-ui'
-import { AddSharp, LogoCss3 } from '@vicons/ionicons5'
-import IconNaiveUi from '../components/icons/IconNaiveUI.vue'
-import IconVite from '../components/icons/IconVite.vue'
-import IconVue from '../components/icons/IconVue.vue'
 
 </script>
 
@@ -62,7 +38,7 @@ import IconVue from '../components/icons/IconVue.vue'
   overflow: auto;
 }
 
-.css3-logo {
+.logo {
   margin: .4em 0 .1em 0;
 }
 

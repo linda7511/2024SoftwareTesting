@@ -1,9 +1,17 @@
 <template>
   <div class="logo">
-    <n-icon class="image" :size="32" color="#5FBC21">
-      <LogoCss3 />
+    <n-icon class="image" :size="50">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <image
+          xlink:href="../components/icons/Icon.png" 
+          x="0"  
+          y="0"  
+          width="512" 
+          height="512" 
+        />
+      </svg>
     </n-icon>
-    <span v-if="showTitle" class="title">Libre Testing</span>
+    <span v-if="showTitle" class="title">Bug Hunter</span>
   </div>
   <n-menu :options="menuOptions" :default-expanded-keys="defaultExpandedKeys" />
 </template>
@@ -13,7 +21,7 @@ import { h, ref, onUpdated, type Component } from 'vue'
 import { RouterLink } from 'vue-router'
 import { NMenu, NIcon } from 'naive-ui'
 import type { MenuOption } from 'naive-ui'
-import { MenuOutline, EaselSharp, LogoCss3 } from '@vicons/ionicons5'
+import { SchoolSharp, BugSharp } from '@vicons/ionicons5'
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -21,9 +29,9 @@ function renderIcon(icon: Component) {
 
 const menuOptions: MenuOption[] = [
   {
-    label: '课程练习',
+    label: '平时作业',
     key: 'course-exercise',
-    icon: renderIcon(MenuOutline),
+    icon: renderIcon(SchoolSharp),
     children: [
       {
         label: () => h(RouterLink, {
@@ -62,7 +70,7 @@ const menuOptions: MenuOption[] = [
   {
     label: '期末项目',
     key: 'final-project',
-    icon: renderIcon(EaselSharp),
+    icon: renderIcon(BugSharp),
     children: [
       {
         label: () => h(RouterLink, {

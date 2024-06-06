@@ -3,14 +3,22 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "vite-build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "start-server": "node unitTestServer.js",
+    "vue-serve": "vue-cli-service serve",
+    "vue-build": "vue-cli-service build"
   },
   "dependencies": {
     "@stackblitz/sdk": "^1.6.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
     "echarts": "^5.3.3",
+    "express": "^4.19.2",
     "highlight.js": "^11.5.0",
+    "jszip": "^3.10.1",
+    "octokit": "^4.0.2",
     "papaparse": "^5.3.2",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"

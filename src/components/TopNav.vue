@@ -13,7 +13,6 @@
         </span>
       </n-breadcrumb-item>
     </n-breadcrumb>
-    <n-icon class="icon" size="1.6em" :component="LogoGithub" @click="openGithub" />
   </div>
 </template>
 
@@ -124,11 +123,6 @@ const options1 = [
 // 下拉框选择条目，跳转到对应页面
 function handleSelect(path: string): void {
   router.push(path)
-}
-
-function openGithub(): void {
-  const url = 'https://github.com/3fuyang/software-testing'
-  window.open(url, '_blank')
 }
 
 // 折叠边导航

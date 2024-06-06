@@ -1,0 +1,1128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DbOracle</name>
+    </assembly>
+    <members>
+        <member name="M:DbOracle.Controllers.AccountingSubjectController.Update(DbOracle.Models.AccountingSubject)">
+            <summary>
+            会计科目表主码：AccountSubjectId
+            </summary>
+            <param name="accountingSubject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AccountingSubjectController.Add(DbOracle.Models.AccountingSubject)">
+            <summary>
+            不要传AccountSubjectId
+            </summary>
+            <param name="accountingSubject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ApplicationController.GetAll">
+            <summary>
+            申请表：获取所有申请信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ApplicationController.GetByEmpId(System.Decimal)">
+            <summary>
+            申请表：根据员工ID查，返回多条申请信息（若干条）
+            </summary>
+            <param name="employeeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ApplicationController.GetByType(System.String)">
+            <summary>
+            申请表：根据申请类型查，返回多条申请信息（若干条）
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ApplicationController.GetByApplicationTimeOfDay(System.DateTime)">
+            <summary>
+            申请表：根据申请时间查，返回多条申请信息（精确到天，若干条）
+            </summary>
+            <param name="applicationTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ApplicationController.Update(DbOracle.Models.Application)">
+            <summary>
+            申请表主码：ApplicationId
+            </summary>
+            <param name="application"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ApplicationController.Add(DbOracle.Models.Application)">
+            <summary>
+            不要传ApplicationId
+            </summary>
+            <param name="application"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsInformationController.GetAll">
+            <summary>
+            资产信息表 获取所有资产信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsInformationController.GetByIfScraped(System.Boolean)">
+            <summary>
+            资产信息表 传入是否报废（bool型），返回报销/未报销的资产（若干条）
+            </summary>
+            <param name="scraped"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsInformationController.GetUnscrapedAssets">
+            <summary>
+            资产信息表 返回所有未报废的资产即对应位置（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsInformationController.Update(DbOracle.Models.AssetsInformation)">
+            <summary>
+            资产信息表 主码：AssetId
+            </summary>
+            <param name="assetsInformation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsInformationController.Add(DbOracle.Models.AssetsInformation)">
+            <summary>
+            不要传AssetId
+            </summary>
+            <param name="AssetsInformation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsSummarizeController.Update(DbOracle.Models.AssetsSummarize)">
+            <summary>
+            资产汇总表 主码：AssetsSummarizeId
+            </summary>
+            <param name="assetsSummarize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssetsSummarizeController.Add(DbOracle.Models.AssetsSummarize)">
+            <summary>
+            不要传AssetsSummarizeId
+            </summary>
+            <param name="assetsSummarize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssignmentController.GetByDepartmentId(System.Decimal)">
+            <summary>
+            任务表：根据部门id获取该部门下的所有任务信息(若干条)
+            </summary>
+            <param name="departmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssignmentController.GetByAssignmentName(System.String)">
+            <summary>
+            任务表：通过任务名称查（若干条）
+            </summary>
+            <param name="assignmentName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssignmentController.GetAll">
+            <summary>
+            任务表：查所有任务信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssignmentController.Update(DbOracle.Models.Assignment)">
+            <summary>
+            任务表 主码：AssignmentId
+            </summary>
+            <param name="assignment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssignmentController.Delete(System.Decimal)">
+            <summary>
+            任务表：根据任务ID删
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AssignmentController.Add(DbOracle.Models.Assignment)">
+            <summary>
+            不要传AssignmentId
+            </summary>
+            <param name="assignment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AttendanceInformationController.GetByEmpId(System.Decimal)">
+            <summary>
+            考勤信息表 根据员工ID查（若干条）
+            </summary>
+            <param name="employee_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AttendanceInformationController.Update(DbOracle.Models.AttendanceInformation)">
+            <summary>
+            出勤表 主码：AttendanceId
+            </summary>
+            <param name="attendanceInformation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.AttendanceInformationController.Add(DbOracle.Models.AttendanceInformation)">
+            <summary>
+            不要传AttendanceId
+            </summary>
+            <param name="attendanceInformation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BillController.GetAll">
+            <summary>
+            账单表 返回所有账单信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BillController.Update(DbOracle.Models.Bill)">
+            <summary>
+            账单表 主码：BillId
+            </summary>
+            <param name="bill"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BillController.Add(DbOracle.Models.Bill)">
+            <summary>
+            不要传BillId
+            </summary>
+            <param name="bill"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BookController.Get(System.Decimal,System.Decimal)">
+            <summary>
+            预定表 通过TableId和CustomerId查餐饮预定信息（若干条）
+            </summary>
+            <param name="TableId"></param>
+            <param name="CustomerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BookController.GetAll">
+            <summary>
+            预定表 返回所有桌位预定信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BookController.GetAvailableBook">
+            <summary>
+            预定表 查询状态有效的所有信息（若干条）
+            </summary>
+            <param name="TableId"></param>
+            <param name="CustomerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.BookController.Update(DbOracle.Models.Book)">
+            <summary>
+            预定表 主码：TableId、CustomerId、BookTime
+            </summary>
+            <param name="newBook"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CarController.GetAll">
+            <summary>
+            车辆表 获取全部车辆信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CarController.GetByCarNumber(System.String)">
+            <summary>
+            车辆表 通过车牌号获取车辆信息
+            </summary>
+            <param name="carNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CarController.Update(DbOracle.Models.Car)">
+            <summary>
+            车辆表 主码：CarNumber
+            </summary>
+            <param name="car"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CarController.Add(DbOracle.Models.Car)">
+            <summary>
+            车辆表 增
+            </summary>
+            <param name="car"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckInCheckOutController.Update(DbOracle.Models.CheckInCheckOut)">
+            <summary>
+            打卡信息表 主码：CheckInId
+            </summary>
+            <param name="checkInCheckOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckInCheckOutController.Add(DbOracle.Models.CheckInCheckOut)">
+            <summary>
+            打卡信息表 增
+            </summary>
+            <param name="checkInCheckOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckinController.GetAll">
+            <summary>
+            入住表 获取所有入住信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckinController.GetByCustomerIdAndInTime(System.Decimal,System.DateTime)">
+            <summary>
+            入住表 通过顾客id和入住时间查
+            </summary>
+            <param name="customerId"></param>
+            <param name="inTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckinController.GetByRoomNum(System.Decimal)">
+            <summary>
+            入住表 通过房间号查（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckinController.Update(DbOracle.Models.Checkin)">
+            <summary>
+            入住表 主码：CustomerId、RoomId、InTime
+            </summary>
+            <param name="checkin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckinController.Add(DbOracle.Models.Checkin)">
+            <summary>
+            不要传CheckInId
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckrepairController.GetByEmpId(System.Decimal)">
+            <summary>
+            检修表 通过员工id查（若干条）
+            </summary>
+            <param name="EmpId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckrepairController.GetByAssetId(System.Decimal)">
+            <summary>
+            检修表 通过资产id查（若干条）
+            </summary>
+            <param name="AssetId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CheckrepairController.Update(DbOracle.Models.Checkrepair)">
+            <summary>
+            检修表 主码：EmpId、AssetId、CheckRepairTime
+            </summary>
+            <param name="checkRepair"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CleaningController.GetByRoomId(System.Decimal)">
+            <summary>
+            清洁表 通过RoomId查找清洁记录
+            </summary>
+            <param name="RoomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CleaningController.GetByEmpId(System.Decimal)">
+            <summary>
+            清洁表 通过EmpId查找清洁记录
+            </summary>
+            <param name="EmpId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CleaningController.Update(DbOracle.Models.Cleaning)">
+            <summary>
+            主码：RoomId、EmpId、CleaningTime
+            </summary>
+            <param name="cleaning"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CleaningController.Add(Room_Cleaning)">
+            <summary>
+            清洁表 增
+            </summary>
+            <param name="room_Cleaning"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ComplaintController.Update(DbOracle.Models.Complaint)">
+            <summary>
+            投诉表 主码 ComplaintId
+            </summary>
+            <param name="complaint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ComplaintController.Add(DbOracle.Models.Complaint)">
+            <summary>
+            不要传ComplaintId
+            </summary>
+            <param name="complaint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumeController.GetByDepartmentId(System.Decimal)">
+            <summary>
+            消耗表 通过部门id获取信息（若干条）
+            </summary>
+            <param name="DepartmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumeController.GetByGoodsId(System.Decimal)">
+            <summary>
+            消耗表 通过物资id获取信息（若干条）
+            </summary>
+            <param name="GoodsId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumeController.GetAll">
+            <summary>
+            消耗表 返回所有消耗表信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumeController.Update(DbOracle.Models.Consume)">
+            <summary>
+            消耗表 主码：DepartmentId、GoodsId
+            </summary>
+            <param name="consume"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumptionRecordController.Update(DbOracle.Models.ConsumptionRecord)">
+            <summary>
+            消费记录表 主码：ConsumeId
+            </summary>
+            <param name="consumptionRecord"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumptionRecordController.Add(DbOracle.Models.ConsumptionRecord)">
+            <summary>
+            不要传ConsumeId
+            </summary>
+            <param name="consumptionRecord"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumptionRecordController.AddCateringRecord(CateringRecord)">
+            <summary>
+            消费记录表 添加有关餐饮的消费记录
+            </summary>
+            <param name="consumptionRecord"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumptionRecordController.GetByRoomNum(System.Decimal)">
+            <summary>
+            消费记录表 通过房间号查询（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.ConsumptionRecordController.GetByID(System.String)">
+            <summary>
+            消费记录表 通过客人身份证号查询（若干条）,注意这里的ID是身份证号，不是表主码
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.GetAll">
+            <summary>
+            客人表：获取所有顾客信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.GetById(System.String)">
+            <summary>
+            客人表 通过身份证号ID查
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.GetByName(System.String)">
+            <summary>
+            客人表 通过姓名查（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.GetByPhone(System.String)">
+            <summary>
+            客人表 通过电话查（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.Update(DbOracle.Models.Customer)">
+            <summary>
+            客人表 主码：CustomerId
+            </summary>
+            <param name="customer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.Add(DbOracle.Models.Customer)">
+            <summary>
+            不要传CustomerId
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.CustomerController.GetCustomerAndTimeInfo(System.Decimal)">
+            <summary>
+            客人表+入住表+房间表 联合多表查 通过房间号查客人信息（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.DepartmentController.GetAll">
+            <summary>
+            获取所有部门信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.DepartmentController.GetByName(System.String)">
+            <summary>
+            部门表：通过部门名称获取部门信息
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.DepartmentController.Update(DbOracle.Models.Department)">
+            <summary>
+            部门表 主码：DepartmentId
+            </summary>
+            <param name="department"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.DepartmentController.Add(DbOracle.Models.Department)">
+            <summary>
+            不要传DepartmentId
+            </summary>
+            <param name="department"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.DishController.GetAllDishes">
+            <summary>
+            菜单表 返回所有菜单信息（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.DishController.GetEachTableDishes">
+            <summary>
+            菜单表 返回每一桌的所有菜品信息（若干条）
+            </summary>
+            <param name="tableId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.DishController.Update(DbOracle.Models.Dish)">
+            <summary>
+            菜单表 主码：DishId
+            </summary>
+            <param name="dish"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.DishController.Add(DbOracle.Models.Dish)">
+            <summary>
+            不要传入 DishId
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.Login(System.String,System.String)">
+            <summary>
+            登录 输入账号密码返回状态信息
+            </summary>
+            <param name="account"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.GetByEmpId(System.Decimal)">
+            <summary>
+            员工表：通过员工ID查员工信息
+            </summary>
+            <param name="employeeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.GetByAccount(System.String)">
+            <summary>
+            员工表：通过账号查
+            </summary>
+            <param name="account"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.GetByName(System.String)">
+            <summary>
+            员工表：根据员工姓名查员工信息（考虑重名情况，可能返回若干条）
+            </summary>
+            <param name="employeeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.GetAll">
+            <summary>
+            员工表 岗位表 部门表 ：联合查表， 查看所有员工基本信息
+            </summary>
+            <param name="employee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.Update(DbOracle.Models.Employee)">
+            <summary>
+            员工表 主码：EmployeeId，更新成功返回新token，失败返回failed
+            </summary>
+            <param name="employee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EmployeeController.Add(DbOracle.Models.Employee)">
+            <summary>
+            员工表 增 成功则返回一个json对象，包括若干信息及token，不要传EmployeeId
+            </summary>
+            <param name="employee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EnterExitController.GetAll">
+            <summary>
+            出入信息表 查所有出入信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EnterExitController.Update(DbOracle.Models.EnterExit)">
+            <summary>
+            出入信息表 主码：InfoId
+            </summary>
+            <param name="enterExit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.EnterExitController.Add(DbOracle.Models.EnterExit)">
+            <summary>
+            不要传InfoId
+            </summary>
+            <param name="enterExit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.GoodController.GetByEmpId(System.Decimal)">
+            <summary>
+            物资表 通过员工id查（对应员工采购的某些类物资）（若干条）
+            </summary>
+            <param name="EmpId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.GoodController.GetAllInfo">
+            <summary>
+            物资表 返回所有物资信息（若干条）
+            </summary>
+            <param name="EmpId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.GoodController.GetByName(System.String)">
+            <summary>
+            物资表 通过物资名查询
+            </summary>
+            <param name="goodsName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.GoodController.Update(DbOracle.Models.Good)">
+            <summary>
+            物资表 主码：GoodsId
+            </summary>
+            <param name="good"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.GoodController.Add(DbOracle.Models.Good)">
+            <summary>
+            不要传GoodsId
+            </summary>
+            <param name="good"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.LocationController.Update(DbOracle.Models.Location)">
+            <summary>
+            位置表 主码：LocationId
+            </summary>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.LocationController.Add(DbOracle.Models.Location)">
+            <summary>
+            不要传LocationId
+            </summary>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MaintainController.GetAll">
+            <summary>
+            维修表 返回所有维修信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MaintainController.Update(DbOracle.Models.Maintain)">
+            <summary>
+            维修表 主码：RoomId、EmpId、MaintainTime
+            </summary>
+            <param name="maintain"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MaintainController.GetByRoom(System.Decimal)">
+            <summary>
+            维修表 通过roomId查（若干条）
+            </summary>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MaintainController.GetByObject(System.String)">
+            <summary>
+            维修表 通过物品名查（若干条）
+            </summary>
+            <param name="objectName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MaintainController.Add(Room_maintain)">
+            <summary>
+            维修表 增
+            </summary>
+            <param name="maintain"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MyorderController.GetOrderAndDishInfo(System.Decimal)">
+            <summary>
+            点单表、菜品表联合查 通过桌位id查对应的点单和菜品信息（若干条）
+            </summary>
+            <param name="tableId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MyorderController.Update(DbOracle.Models.Myorder)">
+            <summary>
+            点单表 主码：TableId、DishId、OrderTime
+            </summary>
+            <param name="myOrder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MyorderController.Add(DbOracle.Models.Myorder)">
+            <summary>
+            点单表 增
+            </summary>
+            <param name="myOrder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MytableController.GetLeisureTable">
+            <summary>
+            桌位表 查询所有空闲桌位的信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MytableController.GetAll">
+            <summary>
+            桌位表 返回所有桌位信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MytableController.Update(DbOracle.Models.Mytable)">
+            <summary>
+            桌位表 主码：TableId
+            </summary>
+            <param name="newTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MytableController.UpdateStatus(System.Decimal,System.String)">
+            <summary>
+            桌位表 通过桌位id修改状态
+            </summary>
+            <param name="tableId"></param>
+            <param name="newStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.MytableController.Add(DbOracle.Models.Mytable)">
+            <summary>
+            不要传TableId
+            </summary>
+            <param name="myTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByParkingAndPlace">
+            <summary>
+            停放表 车位表 ：联合查（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetAll">
+            <summary>
+            停放表 车位表 车位单价表：联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByCarNumber(System.String)">
+            <summary>
+            停放表 车位表 车位单价表：按车牌号联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByTime(System.DateTime,System.DateTime)">
+            <summary>
+            停放表 车位表 车位单价表：按停放开始结束时间范围联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByParkingPlaceType(System.String)">
+            <summary>
+            停放表 车位表 车位单价表：按车位类型联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByArea(System.String)">
+            <summary>
+            停放表 车位表 车位单价表：按片区联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByStatus(System.String)">
+            <summary>
+            停放表 车位表 车位单价表：按占用状态联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.GetByPrice(System.Decimal,System.Decimal)">
+            <summary>
+            停放表 车位表 车位单价表：按价格范围联合查（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.Update(DbOracle.Models.Parking)">
+            <summary>
+            停放表 主码：ParkingSpaceId、CarNumber、StartTime
+            </summary>
+            <param name="parking"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkingController.Add(DbOracle.Models.Parking)">
+            <summary>
+            停放表 增
+            </summary>
+            <param name="parking"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkPlaceController.GetAll">
+            <summary>
+            车位表：获取全部车位（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkPlaceController.Update(DbOracle.Models.ParkPlace)">
+            <summary>
+            车位表 主码：ParkingSpaceId
+            </summary>
+            <param name="parkPlace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ParkPlaceController.Add(DbOracle.Models.ParkPlace)">
+            <summary>
+            不要传ParkingSpaceId
+            </summary>
+            <param name="parkPlace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PayController.GetAll">
+            <summary>
+            支付表 获取全部支付记录（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PayController.Update(DbOracle.Models.Pay)">
+            <summary>
+            支付表 主码：CustomerId、BillId
+            </summary>
+            <param name="pay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PayController.Add(DbOracle.Models.Pay)">
+            <summary>
+            支付表 增
+            </summary>
+            <param name="pay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PostController.GetByDeptID(System.Decimal)">
+            <summary>
+            岗位表：根据部门ID查（若干条）
+            </summary>
+            <param name="departmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PostController.GetAll">
+            <summary>
+            岗位表 获取所有岗位信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PostController.Update(DbOracle.Models.Post)">
+            <summary>
+            岗位表 主码：PostId
+            </summary>
+            <param name="post"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PostController.Add(DbOracle.Models.Post)">
+            <summary>
+            不要传PostId
+            </summary>
+            <param name="post"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.GetByGoodEmpSupplier(System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            采购表 通过货物id、员工id、供应商id查（若干条）
+            </summary>
+            <param name="goods_id"></param>
+            <param name="employee_id"></param>
+            <param name="supplier_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.GetByGoodsId(System.Decimal)">
+            <summary>
+            采购表 通过物资id查（若干条）
+            </summary>
+            <param name="goods_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.GetByEmployeeId(System.Decimal)">
+            <summary>
+            采购表 通过员工id查（若干条）
+            </summary>
+            <param name="employee_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.GetBySupplierId(System.Decimal)">
+            <summary>
+            采购表 通过供应商id查（若干条）
+            </summary>
+            <param name="supplier_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.GetAll">
+            <summary>
+            采购表：获取所有采购信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.Update(DbOracle.Models.Purchase)">
+            <summary>
+            采购表 主码：PurchaseId
+            </summary>
+            <param name="purchase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.PurchaseController.Add(DbOracle.Models.Purchase)">
+            <summary>
+            采购表 增
+            </summary>
+            <param name="purchase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.GetEmptyRoomsByType(System.Decimal)">
+            <summary>
+            房间表：通过房间类型查空房间（若干条）
+            </summary>
+            <param name="typeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.GetEmptyRoomsAll">
+            <summary>
+            房间表：查所有空房间（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.GetRoomIdByRoomNum(System.Decimal)">
+            <summary>
+            房间表：通过房间号获取房间id
+            </summary>
+            <param name="roomNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.GetEmptyRoomCount(System.Decimal)">
+            <summary>
+            房间表 通过ID查空房数量
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.GetMatchRooms(Options)">
+            <summary>
+            房间表 查 传入身份证号/电话/姓名 返回所有匹配的房间信息（若干条）
+            </summary>
+            <param name="customerInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.Update(DbOracle.Models.Room)">
+            <summary>
+            房间表 主码：RoomId
+            </summary>
+            <param name="room"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomController.Add(DbOracle.Models.Room)">
+            <summary>
+            不要传入 RoomId （状态取值为 已入住 / 空闲 / 维修中 三选一）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomorderController.GetAll">
+            <summary>
+            订单表：获取所有订单（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomorderController.GetByCustomerId(System.Decimal)">
+            <summary>
+            订单表：通过顾客id获取订单（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomorderController.Update(DbOracle.Models.Roomorder)">
+            <summary>
+            订单表 主码：OrderId
+            </summary>
+            <param name="roomOrder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomorderController.Add(DbOracle.Models.Roomorder)">
+            <summary>
+            不要传入 OrderId
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomTypeController.GetBetween(System.Decimal,System.Decimal)">
+            <summary>
+            房间类型表 通过价格范围查（若干条）
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomTypeController.GetByType(System.String)">
+            <summary>
+            房间类型表 通过类型名称查
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomTypeController.Update(DbOracle.Models.Roomtype)">
+            <summary>
+            房间类型表 主码：TypeId
+            </summary>
+            <param name="roomType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.RoomTypeController.Add(DbOracle.Models.Roomtype)">
+            <summary>
+            不要传入 TypeId
+            </summary>
+        </member>
+        <member name="M:DbOracle.Controllers.SalaryController.GetByEmployeeID(System.Decimal)">
+            <summary>
+            工资表 根据员工ID查工资信息（若干条）
+            </summary>
+            <param name="employeeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.SalaryController.Update(DbOracle.Models.Salary)">
+            <summary>
+            工资表 主码：SalaryId
+            </summary>
+            <param name="salary"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.SalaryController.Add(DbOracle.Models.Salary)">
+            <summary>
+            不要传SalaryId
+            </summary>
+            <param name="salary"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ScrapController.Update(DbOracle.Models.Scrap)">
+            <summary>
+            报废表 主码：EmpId、AssetId
+            </summary>
+            <param name="scrap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ScrapController.Add(DbOracle.Models.Scrap)">
+            <summary>
+            报废表 增 同时将对应的资产信息状态修改为报废
+            </summary>
+            <param name="scrap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ServiceController.Update(DbOracle.Models.Service)">
+            <summary>
+            服务表 主码：CustomerId、EmpId、ServiceTime
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.ServiceController.Add(DbOracle.Models.Service)">
+            <summary>
+            服务表 增
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.StagingController.Update(DbOracle.Models.Staging)">
+            <summary>
+            暂存表 主码：LuggageId
+            </summary>
+            <param name="staging"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.StagingController.Add(DbOracle.Models.Staging)">
+            <summary>
+            不要传LuggageId
+            </summary>
+            <param name="staging"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.SupplierController.GetByGoodsId(System.Decimal)">
+            <summary>
+            供应商表 通过物资号查（若干条）
+            </summary>
+            <param name="goodsId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.SupplierController.Update(DbOracle.Models.Supplier)">
+            <summary>
+            供应商表 主码：SupplierId
+            </summary>
+            <param name="supplier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.SupplierController.Add(DbOracle.Models.Supplier)">
+            <summary>
+            不要传SupplierId
+            </summary>
+            <param name="supplier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.UnitPriceController.GetAll">
+            <summary>
+            车位单价表 车位表：联合查表，获取每个车位的车位信息和价格信息（若干条）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.UnitPriceController.Update(DbOracle.Models.UnitPrice)">
+            <summary>
+            车位单价表 主码：ParkingPlaceType
+            </summary>
+            <param name="unitPrice"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.Controllers.UnitPriceController.Add(DbOracle.Models.UnitPrice)">
+            <summary>
+            车位单价表 增
+            </summary>
+            <param name="unitPrice"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DbOracle.Migrations.design">
+            <inheritdoc />
+        </member>
+        <member name="M:DbOracle.Migrations.design.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DbOracle.Migrations.design.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DbOracle.Migrations.design.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DbOracle.SQL.SQLCheckinRepository.GetByRoomNum(System.Decimal)">
+            <summary>
+            入住表 通过房间号查
+            </summary>
+        </member>
+        <member name="M:DbOracle.SQL.SQLConsumptionRecordRepository.Add(DbOracle.Models.ConsumptionRecord)">
+            <summary>
+            消费记录表 根据房间ID、员工ID、消费种类和金额 增
+            </summary>
+            <param name="consumptionRecord"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.SQL.SQLConsumptionRecordRepository.GetByRoomNum(System.Decimal)">
+            <summary>
+            消费记录表 通过房间号查
+            </summary>
+            <param name="roomNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.SQL.SQLConsumptionRecordRepository.GetByID(System.String)">
+            <summary>
+            消费记录表 通过客人身份证号查
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbOracle.SQL.SQLMytableRepository.UpdateStatus(System.Decimal,System.String)">
+            <summary>
+            桌位表 通过桌位id修改状态
+            </summary>
+            <param name="tableId"></param>
+            <param name="newStatus"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

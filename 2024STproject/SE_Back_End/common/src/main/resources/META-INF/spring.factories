@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.jike.common.config.MyBatisConfig,\
+  com.jike.common.config.MvcConfig,\
+  com.jike.common.config.JsonConfig,\
+  com.jike.common.config.CorsConfig

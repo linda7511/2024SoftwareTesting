@@ -1,0 +1,171 @@
+{
+  "groups": [
+    {
+      "name": "jike.db"
+    },
+    {
+      "name": "jike.mq"
+    },
+    {
+      "name": "jike.swagger"
+    },
+    {
+      "name": "jike.jwt",
+      "type": "com.jike.config.SecurityConfig",
+      "sourceType": "com.jike.config.JwtProperties"
+    },
+    {
+      "name": "jike.auth",
+      "type": "com.jike.config.MvcConfig",
+      "sourceType": "com.jike.config.AuthProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jike.mq.host",
+      "type": "java.lang.String",
+      "description": "rabbitmq的地址",
+      "defaultValue": "192.168.150.101"
+    },
+    {
+      "name": "jike.mq.port",
+      "type": "java.lang.Integer",
+      "description": "rabbitmq的端口",
+      "defaultValue": "5672"
+    },
+    {
+      "name": "jike.mq.vhost",
+      "type": "java.lang.String",
+      "description": "rabbitmq的virtual-host地址",
+      "defaultValue": "/hmxt"
+    },
+    {
+      "name": "jike.mq.username",
+      "type": "java.lang.String",
+      "description": "rabbitmq的用户名",
+      "defaultValue": "hmxt"
+    },
+    {
+      "name": "jike.mq.password",
+      "type": "java.lang.String",
+      "description": "rabbitmq的密码",
+      "defaultValue": "123321"
+    },
+    {
+      "name": "jike.mq.listener.retry.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否开启rabbitmq的消费者重试机制",
+      "defaultValue": "true"
+    },
+    {
+      "name": "jike.mq.listener.retry.interval",
+      "type": "java.time.Duration",
+      "description": "消费者重试初始失败等待时长",
+      "defaultValue": "1000ms"
+    },
+    {
+      "name": "jike.mq.listener.retry.multiplier",
+      "type": "java.lang.Integer",
+      "description": "失败等待时长的递增倍数",
+      "defaultValue": "1"
+    },
+    {
+      "name": "jike.mq.listener.retry.max-attempts",
+      "type": "java.lang.Integer",
+      "description": "消费者重试最大重试次数",
+      "defaultValue": "3"
+    },
+    {
+      "name": "jike.mq.listener.retry.stateless",
+      "type": "java.lang.Boolean",
+      "description": "是否是无状态，默认true",
+      "defaultValue": "true"
+    },
+    {
+      "name": "jike.db.host",
+      "type": "java.lang.String",
+      "description": "数据库地址",
+      "defaultValue": "47.99.106.204"
+    },
+    {
+      "name": "jike.db.port",
+      "type": "java.lang.Integer",
+      "description": "数据库端口",
+      "defaultValue": "3306"
+    },
+    {
+      "name": "jike.db.database",
+      "type": "java.lang.String",
+      "description": "数据库database名",
+      "defaultValue": ""
+    },
+    {
+      "name": "jike.db.un",
+      "type": "java.lang.String",
+      "description": "数据库用户名",
+      "defaultValue": "root"
+    },
+    {
+      "name": "jike.db.pw",
+      "type": "java.lang.String",
+      "description": "数据库密码",
+      "defaultValue": "123"
+    },
+    {
+      "name": "jike.swagger.title",
+      "type": "java.lang.String",
+      "description": "接口文档标题"
+    },
+    {
+      "name": "jike.swagger.description",
+      "type": "java.lang.String",
+      "description": "接口文档描述"
+    },
+    {
+      "name": "jike.swagger.email",
+      "type": "java.lang.String",
+      "description": "接口文档联系人邮箱"
+    },
+    {
+      "name": "jike.swagger.concat",
+      "type": "java.lang.String",
+      "description": "接口文档联系人"
+    },
+    {
+      "name": "jike.swagger.package",
+      "type": "java.lang.String",
+      "description": "接口controller扫描包"
+    },
+    {
+      "name": "jike.jwt.location",
+      "type": "java.lang.String",
+      "description": "秘钥存储地址"
+    },
+    {
+      "name": "jike.jwt.alias",
+      "type": "java.lang.String",
+      "description": "秘钥别名"
+    },
+    {
+      "name": "jike.jwt.password",
+      "type": "java.lang.String",
+      "description": "秘钥文件密码"
+    },
+    {
+      "name": "jike.jwt.tokenTTL",
+      "type": "java.time.Duration",
+      "description": "登录有效期"
+    },
+    {
+      "name": "jike.auth.excludePaths",
+      "type": "java.util.List",
+      "description": "登录放行的路径"
+    },
+    {
+      "name": "jike.auth.includePaths",
+      "type": "java.util.List",
+      "description": "登录拦截的路径"
+    }
+  ],
+  "hints": []
+}

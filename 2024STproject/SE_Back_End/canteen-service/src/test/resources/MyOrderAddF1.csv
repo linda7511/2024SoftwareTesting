@@ -1,0 +1,4 @@
+tableId,dishId,consumptionRecordId,orderTime,orderStatus
+,3,1,2007-12-03T10:15:30,点单成功
+1,,1,2007-12-03T10:15:30,点单成功
+,,1,2007-12-03T10:15:30,点单成功

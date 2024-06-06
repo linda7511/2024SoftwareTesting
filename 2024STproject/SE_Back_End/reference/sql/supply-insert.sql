@@ -1,0 +1,85 @@
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (1,'清洁用品','84消毒液',50);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (2,'洗浴用品','浴缸',51);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (3,'床上用品','高级床垫',24);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (4,'清洁用品','地板清洁剂',70);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (5,'餐具','瓷质餐盘',41);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (6,'茶具','精致茶杯',60);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (7,'香氛','蜡烛',31);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (8,'迎宾用品','迎宾水果篮',13);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (9,'家具','沙发',9);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (10,'卫生纸','三层卫生纸',80);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (11,'暖气设备','电热毯',20);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (12,'洗漱用品','牙刷牙膏套装',45);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (13,'床上用品','枕头',60);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (14,'清洁用品','玻璃清洁剂',30);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (15,'餐具','不锈钢刀叉勺',80);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (16,'茶具','茶壶',25);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (17,'香氛','香薰精油',18);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (18,'迎宾用品','迎宾巧克力',55);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (19,'家具','床头柜',38);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (20,'卫生纸','软抽纸',90);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (21,'暖气设备','暖风机',12);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (22,'洗浴用品','沐浴露',70);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (23,'床上用品','羽绒被',22);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (24,'清洁用品','洗衣液',50);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (25,'餐具','陶瓷碗盘',68);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (26,'茶具','玻璃茶壶',33);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (27,'香氛','香熏蜡烛',28);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (28,'迎宾用品','欢迎信封',42);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (29,'家具','写字台',15);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (30,'卫生纸','湿巾纸',75);
+Insert into GOODS (GOODS_ID,CATEGORY,GOODS_NAME,INVENTORY) values (31,'暖气设备','电暖器',17);
+
+INSERT INTO PURCHASE (GOODS_ID, EMPLOYEE_ID, PURCHASE_DATE, PURCHASE_QUANTITY, UNIT_PRICE) 
+VALUES 
+(1, 9, '2023-07-22', 10, 5),
+(2, 9, '2023-08-01', 18, 500),
+(3, 9, '2023-08-02', 18, 200),
+(4, 9, '2023-08-03', 5, 8),
+(5, 9, '2023-07-25', 50, 20),
+(6, 9, '2023-07-26', 50, 15),
+(7, 9, '2023-07-28', 20, 1),
+(8, 9, '2023-07-30', 10, 30),
+(9, 9, '2023-08-05', 5, 500),
+(10, 9,'2023-08-08', 100, 3),
+(11, 9,'2023-08-11', 18, 70),
+(12, 9,'2023-08-15', 100, 5),
+(13, 9,'2023-08-18', 36, 50),
+(14, 9,'2023-08-21', 10, 5),
+(15, 9,'2023-08-24', 100, 5),
+(16, 9,'2023-08-27', 36, 10),
+(17, 9,'2023-08-30', 36, 20),
+(18, 9,'2023-09-02', 20, 4),
+(19, 9,'2023-09-05', 36, 100),
+(20, 9,'2023-09-08', 100, 5),
+(21, 9,'2023-09-11', 18, 50),
+(22, 9,'2023-09-14', 100, 50),
+(23, 9,'2023-09-17', 50, 100),
+(24, 9,'2023-09-20', 10, 50),
+(25, 9,'2023-09-23', 100, 10),
+(26, 9,'2023-09-26', 36, 10),
+(27, 9,'2023-09-29', 36, 15),
+(28, 9,'2023-10-02', 100, 1),
+(29, 9,'2023-10-05', 5, 100),
+(30, 9,'2023-10-08', 100, 5),
+(31, 9,'2023-10-11', 36, 100);
+
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (4,1,3);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (2,2,2);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (6,3,4);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (1,4,5);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (5,5,1);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (3,6,3);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (2,7,4);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (6,8,2);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (1,9,1);
+Insert into CONSUME (DEPARTMENT_ID,GOODS_ID,CONSUME_AMOUNT) values (4,10,5);
+
+
+INSERT INTO MAINTAIN (ROOM_ID, EMPLOYEE_ID, MAINTAINING_TIME, MAINTAINING_ITEM, MAINTAINING_RESULT) 
+VALUES 
+(1, 9, '2023-07-22 07:23:10', '桌子', '已维修'),
+(6, 9, '2022-08-22 08:14:13', '灯泡', '已更换'),
+(16, 9, '2023-05-10 06:12:10', '花洒', '已更换'),
+(14, 9, '2023-05-11 05:23:03', '窗户', '已维修');
+
