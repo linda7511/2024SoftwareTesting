@@ -3,7 +3,7 @@
     <button @click="runTests">Run Tests</button>
     <div v-if="testResults">...Display test results here...</div>
     <div>
-      <iframe v-if="iframeSrc" :src="iframeSrc" width="100%" height="500px"></iframe>
+      <iframe v-if="iframeShow" :src="'2024STproject/SE_Back_End/canteen-service/target/site/allure-maven-plugin/index.html'" width="100%" height="500px"></iframe>
     </div>
   </div>
 </template>
@@ -15,22 +15,26 @@ export default {
   data() {
     return {
       testResults: null,
-      iframeSrc: null,
+      iframeShow: false,
     };
   },
   methods: {
     async runTests() {
+      console.log("run start");
       try {
         const response = await axios.post('http://localhost:3000/run-tests');
+        console.log("response:",response);
 
         const reportHtml = response.data.reportHtml;
         console.log('reportHtml:',reportHtml);
-        this.embedReportInFrontend(reportHtml);
+        //this.embedReportInFrontend(reportHtml);
+        this.iframeShow = true;
 
         console.log('Allure report embedded in frontend.');
       } catch (error) {
         console.error('Error running tests or generating report', error);
       }
+      console.log("run finished");
     },
 
     embedReportInFrontend(reportHtml) {

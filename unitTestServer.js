@@ -43,6 +43,7 @@ app.post('/run-tests', (req, res) => {
           return res.status(500).json({ error: 'Error reading report file' });
         }
 
+        console.log('reportHtml:', data);
         res.json({ reportHtml: data });
       });
     });
