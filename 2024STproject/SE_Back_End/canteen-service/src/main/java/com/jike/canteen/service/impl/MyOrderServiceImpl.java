@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jike.canteen.domain.dto.CateringRecordDTO;
 import com.jike.canteen.domain.dto.MyOrderDTO;
 import com.jike.canteen.domain.dto.OrderDishDTO;
@@ -14,26 +14,28 @@ import com.jike.canteen.domain.po.MyTable;
 import com.jike.canteen.mapper.DishMapper;
 import com.jike.canteen.mapper.MyOrderMapper;
 import com.jike.canteen.mapper.MyTableMapper;
+
 import com.jike.canteen.service.FrontdeskClient;
 import com.jike.canteen.service.IMyOrderService;
+import com.jike.canteen.service.IMyTableService;
 import com.jike.common.utils.BeanUtils;
 import com.jike.common.utils.ResponseResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> implements IMyOrderService {
+public class MyOrderServiceImpl extends ServiceImpl<MyOrderMapper, MyOrder> implements IMyOrderService {
 
     private final MyTableMapper myTableService;
     private final DishMapper myDishMapper;
     private final MyOrderMapper myOrderMapper;
     private final FrontdeskClient frontdeskClient;
 
-    @Autowired
     public MyOrderServiceImpl(MyTableMapper myTableService, DishMapper myDishMapper, MyOrderMapper myOrderMapper, FrontdeskClient frontdeskClient) {
         this.myTableService = myTableService;
         this.myDishMapper = myDishMapper;
@@ -46,8 +48,7 @@ public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> i
     }
 
 
-    @Override
-    public ResponseResult<?> addMyOrder(MyOrderDTO myOrderDTO) {
+    public ResponseResult<String> addMyOrder(@RequestBody MyOrderDTO myOrderDTO) {
         if (myOrderDTO.getTableId() == 0 || myOrderDTO.getDishId() == 0 || myOrderDTO.getOrderTime() == null || !isValidOrderStatus(myOrderDTO.getOrderStatus())) {
             return ResponseResult.fail("新增失败");
         }
@@ -66,8 +67,7 @@ public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> i
         return ResponseResult.fail("新增失败");
     }
 
-    @Override
-    public ResponseResult<?> updateMyOrder(MyOrderDTO myOrderDTO) {
+    public ResponseResult<String> updateMyOrder(@RequestBody MyOrderDTO myOrderDTO) {
 
         if (myOrderDTO.getTableId() == 0 || myOrderDTO.getDishId() == 0 || myOrderDTO.getOrderTime() == null || !isValidOrderStatus(myOrderDTO.getOrderStatus())) {
             return ResponseResult.fail("修改失败");
@@ -80,8 +80,7 @@ public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> i
         return ResponseResult.fail("修改失败");
     }
 
-    @Override
-    public ResponseResult<?> getOrderAndDishInfo(int tableId) {
+    public ResponseResult<?> getOrderAndDishInfo(@PathVariable("tableId") int tableId) {
         List<OrderDishDTO> orderDishInfos = myOrderMapper.selectOrderAndDishInfoByTableId(tableId);
         if (orderDishInfos != null && !orderDishInfos.isEmpty()) {
             return ResponseResult.success(orderDishInfos);
@@ -90,8 +89,7 @@ public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> i
         }
     }
 
-    @Override
-    public ResponseResult<?> updateConsumpId(int consumptionRecordId, String orderMessages) throws JsonProcessingException {
+    public ResponseResult<?> updateConsumpId(@PathVariable("consumptionRecordId") int consumptionRecordId, @RequestBody String orderMessages) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(orderMessages);
         List<TempOrderDTO> tempOrderDTOList = new ArrayList<>();
@@ -122,8 +120,7 @@ public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> i
         return ResponseResult.success("修改成功");
     }
 
-    @Override
-    public ResponseResult<String> addCateringRecord(CateringRecordDTO cateringRecordDTO) {
+    public ResponseResult<String> addCateringRecord(@RequestBody CateringRecordDTO cateringRecordDTO) {
         int tableId = cateringRecordDTO.getTableId();
         MyTable myTable = myTableService.selectById(tableId);
         myTable.setTableStatus("空闲");
