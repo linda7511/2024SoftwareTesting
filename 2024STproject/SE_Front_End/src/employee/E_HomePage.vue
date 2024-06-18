@@ -158,33 +158,33 @@ export default {
                         },
                     ]
                 },
-                {
-                    index:'/e_home/material',
-                    key:'3',
-                    title:'物资管理',
-                    subs: [
-                        {
-                            index:'/e_home/material/purchasing_materials',
-                            key:'3.1',
-                            title:'采购物资',
-                        },
-                        {
-                            index:'/e_home/material/view_inventory',
-                            key:'3.2',
-                            title:'查看库存',
-                        },
-                        {
-                            index:'/e_home/material/maintain_records',
-                            key:'3.3',
-                            title:'维护记录',
-                        },
-                        {
-                            index:'/e_home/material/consumption_records',
-                            key:'3.5',
-                            title:'消耗记录',
-                        },
-                    ],
-                },
+                // {
+                //     index:'/e_home/material',
+                //     key:'3',
+                //     title:'物资管理',
+                //     subs: [
+                //         {
+                //             index:'/e_home/material/purchasing_materials',
+                //             key:'3.1',
+                //             title:'采购物资',
+                //         },
+                //         {
+                //             index:'/e_home/material/view_inventory',
+                //             key:'3.2',
+                //             title:'查看库存',
+                //         },
+                //         {
+                //             index:'/e_home/material/maintain_records',
+                //             key:'3.3',
+                //             title:'维护记录',
+                //         },
+                //         {
+                //             index:'/e_home/material/consumption_records',
+                //             key:'3.5',
+                //             title:'消耗记录',
+                //         },
+                //     ],
+                // },
                 {
                     index:'/e_home/personnel',
                     key:'4',

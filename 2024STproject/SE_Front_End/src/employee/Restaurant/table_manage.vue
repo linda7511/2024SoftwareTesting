@@ -186,6 +186,7 @@
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { get, del, put, post } from '../../axios/axiosConfig.js'
+import { fetchTableData } from '../../axios/check_attendance.js';
     export default {
         data() {
             return {
@@ -218,7 +219,7 @@ import { get, del, put, post } from '../../axios/axiosConfig.js'
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                 }).then(() => {
-                    del(`/api/Mytable/Delete/${this.table[index]['tableId']}`, {})
+                    del(`/api/MyTable/Delete/${this.table[index]['tableId']}`, {})
                         .then((response) => {
                             console.log(`delete table ${response}`);
                             // 删除不成功消息提示
@@ -264,7 +265,7 @@ import { get, del, put, post } from '../../axios/axiosConfig.js'
             // 保存编辑
             saveEdit() {
                 // 向后端传输更改信息
-                put('/api/Mytable/Update', this.editTable)
+                put('/api/MyTable/Update', this.editTable)
                     .then((response) => {
                         console.log(`update table ${response}`);
                         if (!response) {
@@ -311,7 +312,7 @@ import { get, del, put, post } from '../../axios/axiosConfig.js'
                     }
                 }
                 // 向后端添加
-                post(`/api/Mytable/Add`, this.newTable)
+                post(`/api/MyTable/Add`, this.newTable)
                     .then((response) => {
                         console.log(`add table ${response}`);
                         // 添加失败消息提示
@@ -320,7 +321,7 @@ import { get, del, put, post } from '../../axios/axiosConfig.js'
                             return;
                         }
                         // 添加完成后重新获取所有菜品信息
-                        get(`/api/Mytable/GetAll`, {})
+                        get(`/api/MyTable/GetAll`, {})
                             .then(response => {
                                 console.log(true);
                                 this.table = response.data;
@@ -389,7 +390,7 @@ import { get, del, put, post } from '../../axios/axiosConfig.js'
             },
             // 处理桌位信息更新
             handleChange(data) {
-                put('/api/Mytable/Update', data)
+                put('/api/MyTable/Update', data)
                     .then((response) => {
                         console.log(`update table ${response}`);
                         if (!response) {
@@ -406,13 +407,13 @@ import { get, del, put, post } from '../../axios/axiosConfig.js'
         },
         mounted() {
             // 挂载就尝试获取桌位数据
-            get(`/api/Mytable/GetAll`, {})
+            get(`/api/MyTable/GetAll`, {})
                 .then(response => {
                     console.log(123456);
                     this.table = response.data;
                     console.log(response.data)
                     if (this.table)
-                        this.isGetTableData = true;
+                        this.isGetTableData = true; 
                     else {
                         this.table = [];
                     }

@@ -605,7 +605,7 @@ export default {
         },
         // 获得某一个桌位的点菜信息
         getOderAndDishInfo(tableId) {
-            get(`/api/Myorder/GetOrderAndDishInfo/${tableId}`, {})
+            get(`/api/MyOrder/GetOrderAndDishInfo/${tableId}`, {})
                 .then(response => {
                     if (response.status === false) {
                         selectedTable.tableId = '';
@@ -804,7 +804,7 @@ export default {
             }
             // 同时添加多个点单
             const promises = this.selectedDish.map(dish => {
-                return post(`/api/Myorder/Add`, {
+                return post(`/api/MyOrder/Add`, {
                     tableId: this.selectedTable.tableId,
                     dishId: dish.dishId,
                     consumptionRecordId:0,
@@ -846,7 +846,7 @@ export default {
             // 更新多个点单信息
             const promises = this.confirmOrder.map(item => {
                 const dishItem = this.dish.find(item1 => item1.dishName === item.dishName);
-                return put(`/api/Myorder/Update`, {
+                return put(`/api/MyOrder/Update`, {
                     tableId: this.selectedTable.tableId,
                     dishId: dishItem.dishId,
                     orderTime: item.orderTime,
@@ -924,7 +924,7 @@ export default {
                                 tableId: this.selectedTable.tableId,
                                 orderMessages: dishPK,
                             })
-                            post(`/api/Myorder/AddCateringRecord`, {
+                            post(`/api/MyOrder/AddCateringRecord`, {
                                 roomNumber: roomNum,
                                 consumeAmount: this.sumCost,
                                     tableId: this.selectedTable.tableId,

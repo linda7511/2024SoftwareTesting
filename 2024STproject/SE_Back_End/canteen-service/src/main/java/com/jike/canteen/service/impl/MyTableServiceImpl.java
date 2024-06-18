@@ -14,6 +14,8 @@ import com.jike.common.utils.CollUtils;
 import com.jike.common.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -37,8 +39,7 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
         return "小桌".equals(tableType) || "中桌".equals(tableType)|| "大桌".equals(tableType)|| "双人座".equals(tableType);
     }
 
-    @Override
-    public ResponseResult<Void> deleteTableById(int tableId) {
+    public ResponseResult<Void> deleteTableById(@PathVariable("tableId") int tableId) {
         QueryWrapper<MyOrder> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("table_id", tableId);
         int associatedOrdersCount = Math.toIntExact(myOrderMapper.selectCount(queryWrapper));
@@ -53,7 +54,6 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
         return ResponseResult.fail("删除桌位失败");
     }
 
-    @Override
     public ResponseResult<List<MyTableDTO>> getAllTables() {
         List<MyTable> myTables = myTableMapper.selectList(null);
         if (CollUtils.isEmpty(myTables)) {
@@ -62,8 +62,7 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
         return ResponseResult.success(BeanUtils.copyList(myTables, MyTableDTO.class));
     }
 
-    @Override
-    public ResponseResult<String> updateTable(MyTableDTO myTableDTO) {
+    public ResponseResult<String> updateTable(@RequestBody MyTableDTO myTableDTO) {
         if (myTableDTO.getTableId() == 0 || myTableDTO.getTableLocation() == null || myTableDTO.getNote() == null ||
                 !isValidtableStatus(myTableDTO.getTableStatus()) || !isValidtableType(myTableDTO.getTableType())) {
             return ResponseResult.fail("修改失败");
@@ -75,8 +74,7 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
         return ResponseResult.fail("修改失败");
     }
 
-    @Override
-    public ResponseResult<String> addTable(NewMyTableDTO newMyTableDTO) {
+    public ResponseResult<String> addTable(@RequestBody NewMyTableDTO newMyTableDTO) {
         if (newMyTableDTO.getTableLocation() == null || newMyTableDTO.getNote() == null ||
                 !isValidtableStatus(newMyTableDTO.getTableStatus()) || !isValidtableType(newMyTableDTO.getTableType())) {
             return ResponseResult.fail("新增失败");
@@ -89,8 +87,7 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
         return ResponseResult.fail("新增失败");
     }
 
-    @Override
-    public ResponseResult<String> freeTable(int tableId) {
+    public ResponseResult<String> freeTable(@PathVariable("tableId") int tableId) {
         MyTable myTable = myTableMapper.selectById(tableId);
         if (myTable != null) {
             myTable.setTableStatus("空闲");

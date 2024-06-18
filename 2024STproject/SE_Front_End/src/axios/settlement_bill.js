@@ -24,6 +24,9 @@ export async function Statistics(){
     //获取所有支付数据
     const payData = await get('/api/Pay/GetAll',{});
     console.log('payData:',payData.data);
+    if (!Array.isArray(payData.data)) {
+      throw new Error("Invalid data format");
+  }
     // 获取当前日期
     const currentDate = new Date();
     // 将当前日期的时间部分设为0点
@@ -45,7 +48,7 @@ export async function Statistics(){
     const yesterdayTimestamp = yesterday.getTime();
     const currentDateTimestamp = currentDate.getTime();
     // 过滤出昨天和今天的支付记录
-    const yesterdayPayments = payData.filter(payment => {
+    const yesterdayPayments = payData.data.filter(payment => {
         const payTime = new Date(payment.PayTime).getTime();
         return (
         payTime >= yesterdayTimestamp  && payTime < currentDateTimestamp
@@ -56,7 +59,7 @@ export async function Statistics(){
     const tomorrow = new Date(currentDate);
     tomorrow.setDate(currentDate.getDate() + 1);
     const tomorrowTimestamp = tomorrow.getTime();
-    const todayPayments = payData.filter(payment => {
+    const todayPayments = payData.data.filter(payment => {
         const payTime = new Date(payment.PayTime).getTime();
         return (
         payTime >= currentDateTimestamp && payTime < tomorrowTimestamp
@@ -66,7 +69,7 @@ export async function Statistics(){
 
 
     // 过滤出上个月和当月的支付记录
-    const lastMonthPayments = payData.filter(payment => {
+    const lastMonthPayments = payData.data.filter(payment => {
       const payTime = new Date(payment.PayTime);
       return (
         payTime >= lastMonth && payTime < currentDate
@@ -74,7 +77,7 @@ export async function Statistics(){
     });
     console.log(lastMonthPayments);
     
-    const currentMonthPayments = payData.filter(payment => {
+    const currentMonthPayments = payData.data.filter(payment => {
       const payTime = new Date(payment.PayTime);
       const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
       const newCurrentDate = new Date();
