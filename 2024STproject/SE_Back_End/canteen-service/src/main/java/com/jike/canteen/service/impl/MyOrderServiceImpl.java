@@ -49,16 +49,12 @@ public class MyOrderServiceImpl extends ServiceImpl<MyOrderMapper, MyOrder> impl
 
 
     public ResponseResult<String> addMyOrder(@RequestBody MyOrderDTO myOrderDTO) {
-        if (myOrderDTO.getTableId() == 0 || myOrderDTO.getDishId() == 0 || myOrderDTO.getOrderTime() == null || !isValidOrderStatus(myOrderDTO.getOrderStatus())) {
+        if ( myOrderDTO.getOrderTime() == null || !isValidOrderStatus(myOrderDTO.getOrderStatus())) {
             return ResponseResult.fail("新增失败");
         }
 
 
-        // Check if dishId exists
-        if (myDishMapper.selectById(myOrderDTO.getDishId()) == null ||
-                myTableService.selectById(myOrderDTO.getTableId()) == null) {
-            return ResponseResult.fail("新增失败：外键不存在");
-        }
+
 
         MyOrder myOrder = BeanUtils.copyBean(myOrderDTO, MyOrder.class);
         if (myOrderMapper.insert(myOrder) > 0) {
@@ -69,7 +65,7 @@ public class MyOrderServiceImpl extends ServiceImpl<MyOrderMapper, MyOrder> impl
 
     public ResponseResult<String> updateMyOrder(@RequestBody MyOrderDTO myOrderDTO) {
 
-        if (myOrderDTO.getTableId() == 0 || myOrderDTO.getDishId() == 0 || myOrderDTO.getOrderTime() == null || !isValidOrderStatus(myOrderDTO.getOrderStatus())) {
+        if ( myOrderDTO.getOrderTime() == null || !isValidOrderStatus(myOrderDTO.getOrderStatus())) {
             return ResponseResult.fail("修改失败");
         }
 

@@ -20,17 +20,14 @@ import java.util.List;
 @Service
 public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements IDishService{
     public ResponseResult<Void> deleteDishById(@PathVariable("DishId") int dishId) {
-        try {
+
             boolean isDeleted = this.removeById(dishId);
             if (isDeleted) {
                 return ResponseResult.success("成功删除");
 
             }
             return ResponseResult.fail("删除菜品失败");
-        }
-        catch (DataAccessException e) {
-            return ResponseResult.fail("删除菜品失败");
-        }
+
     }
     public ResponseResult<?> getAll() {
         List<Dish> dishes = this.list();
@@ -40,16 +37,14 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements ID
         return ResponseResult.success(BeanUtils.copyList(dishes, DishDTO.class));
     }
     public ResponseResult<String> updateDish(@RequestBody DishDTO DishDTO) {
-        try {
+
             if(DishDTO.getDishName()==null || DishDTO.getDishName().equals("")){
                 return ResponseResult.fail("修改失败");
             }
             if(DishDTO.getDishTaste()==null || DishDTO.getDishTaste().equals("")){
                 return ResponseResult.fail("修改失败");
             }
-            if(DishDTO.getDishId()<=0){
-                return ResponseResult.fail("修改失败");
-            }
+
             if(DishDTO.getDishPrice()<=0){
                 return ResponseResult.fail("修改失败");
             }
@@ -57,13 +52,11 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements ID
             if (this.updateById(dish))
                 return ResponseResult.success("修改成功");
             return ResponseResult.fail("修改失败");
-        }
-        catch(DataAccessException e) {
-            return ResponseResult.fail("修改失败");
-        }
+
+
     }
     public ResponseResult<String> addDish(@RequestBody NewDishDTO newDishDTO) {
-        try {
+
             if(newDishDTO.getDishPrice()<=0){
                 return ResponseResult.fail("新增失败");
             }
@@ -71,8 +64,6 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements ID
             if (this.save(dish))
                 return ResponseResult.success("新增成功");
             return ResponseResult.fail("新增失败");
-        } catch (DataAccessException e) {
-            return ResponseResult.fail("新增失败");
-        }
+
     }
 }
