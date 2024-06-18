@@ -3,7 +3,7 @@
     <button @click="runTests">Run Tests</button>
     <div v-if="testResults">...Display test results here...</div>
     <div>
-      <iframe v-if="iframeShow" :src="'2024STproject/SE_Back_End/canteen-service/target/site/allure-maven-plugin/index.html'" width="100%" height="500px"></iframe>
+      <iframe v-if="iframeShow" :src="'2024STproject/SE_Back_End/canteen-service/target/allure-report/index.html'" width="100%" height="500px"></iframe>
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     async runTests() {
       console.log("run start");
       try {
-        const response = await axios.post('http://localhost:3000/run-tests');
+        const response = await axios.post('http://localhost:3000/run-unitTests');
         console.log("response:",response);
 
         const reportHtml = response.data.reportHtml;

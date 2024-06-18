@@ -6,7 +6,7 @@
     "vite-build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
-    "start-server": "node unitTestServer.js",
+    "start-server": "node testServer.js",
     "vue-serve": "vue-cli-service serve",
     "vue-build": "vue-cli-service build"
   },
