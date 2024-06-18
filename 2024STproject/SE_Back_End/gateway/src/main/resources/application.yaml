@@ -19,7 +19,7 @@ spring:
         - id: canteen
           uri: lb://canteen-service
           predicates:
-            - Path=/api/Book/**,/api/Dish/**,/api/Myorder/**,/api/Mytable/**
+            - Path=/api/Book/**,/api/Dish/**,/api/MyOrder/**,/api/MyTable/**
         - id: performance
           uri: lb://performance-service
           predicates:
