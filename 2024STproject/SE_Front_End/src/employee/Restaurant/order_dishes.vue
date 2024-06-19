@@ -683,7 +683,7 @@ export default {
                     if (yyyy === todayYyyy && mm === todayMm && dd === todayDd) {
                         let table = this.table.find((item) => (item.tableId == this.tempBook.tableId));
                         table.tableStatus = '预定';
-                        put('/api/Mytable/Update', {
+                        put('/api/MyTable/Update', {
                             tableId: table.tableId,
                             tableStatus: '预定',
                         })
@@ -1264,7 +1264,7 @@ export default {
             deep: false,
             immediate: false,
             handler(newValue, oldValue) {
-                put('/api/Mytable/Update', this.selectedTable)
+                put('/api/MyTable/Update', this.selectedTable)
                     .then((response) => {
                         console.log(`update table ${response}`);
                         if (!response) {
@@ -1283,7 +1283,7 @@ export default {
             deep: false,
             immediate: false,
             handler(newValue, oldValue) {
-                put('/api/Mytable/Update', this.selectedTable)
+                put('/api/MyTable/Update', this.selectedTable)
                     .then((response) => {
                         console.log(`update table ${response}`);
                         if (!response) {
@@ -1302,7 +1302,7 @@ export default {
             deep: false,
             immediate: false,
             handler(newValue, oldValue) {
-                put('/api/Mytable/Update', this.selectedTable)
+                put('/api/MyTable/Update', this.selectedTable)
                     .then((response) => {
                         console.log(`update table ${response}`);
                         if (!response) {
@@ -1320,7 +1320,7 @@ export default {
     },
     mounted() {
         // 挂载就获取信息
-        get(`/api/Mytable/GetAll`, {})
+        get(`/api/MyTable/GetAll`, {})
             .then(response => {
                 console.log('get table true');
                 this.table = response.data;
