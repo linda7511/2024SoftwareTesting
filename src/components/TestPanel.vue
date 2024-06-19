@@ -360,7 +360,7 @@ const executeTesting = (dataContent: Row[]) => {
     }
     // let myTime = new Date()
     // row.Time = myTime.toLocaleString()
-    if (row.实际输出 === row.预期输出) {
+    if (row.实际输出.toString()=== row.预期输出.toString()) {
       row.是否通过 = `TRUE`
     } else {
       row.是否通过 = `FALSE`
