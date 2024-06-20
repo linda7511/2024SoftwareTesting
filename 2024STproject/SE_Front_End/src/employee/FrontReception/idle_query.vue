@@ -205,7 +205,7 @@ export default {
         },
         //日期转换为时间戳
         trimInOutTime: function (date) {
-            return date + "T12:00:00.000Z";
+            return date + "T00:00:00.000Z";
         },
         //检查字符串是否为纯数字
         checkNumber: function (string) {
