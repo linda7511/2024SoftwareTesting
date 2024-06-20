@@ -621,6 +621,7 @@ export default {
                 .catch(error => {
                     this.selectedTableOrder = [];
                     ElMessage.error('无点餐用例');
+                    console.log("问题在哪里");
                     console.log(error);
                     return;
                 })
