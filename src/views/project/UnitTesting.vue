@@ -57,7 +57,7 @@ export default {
       selectedMethods: [],
       subsystemList:['餐厅子系统','人事子系统','绩效子系统','前台接待子系统'],
       classList: {
-        '餐厅子系统': ['Dish', 'Book','MyOrder','MyTable'],
+        '餐厅子系统': ['All','Dish', 'Book','MyOrder','MyTable'],
         '人事子系统': ['Class3', 'Class4'],
         '绩效子系统': ['Class3', 'Class4'],
         '前台接待子系统': ['Class3', 'Class4'],
@@ -69,7 +69,7 @@ export default {
         'MyTable': ['createTable', 'amendTable', 'removeBookInfo','all'],
       },
       testResults: null,
-      iframeShow: false,
+      iframeShow: true,
       loading: false,
       iframeSrc: '' // 初始为空，根据需要更新
     };
