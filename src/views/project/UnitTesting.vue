@@ -69,7 +69,7 @@ export default {
         'MyTable': ['createTable', 'amendTable', 'removeBookInfo','all'],
       },
       testResults: null,
-      iframeShow: true,
+      iframeShow: false,
       loading: false,
       iframeSrc: '' // 初始为空，根据需要更新
     };
