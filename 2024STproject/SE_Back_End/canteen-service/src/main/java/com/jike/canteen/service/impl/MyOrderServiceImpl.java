@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import com.jike.canteen.domain.dto.CateringRecordDTO;
 import com.jike.canteen.domain.dto.MyOrderDTO;
 import com.jike.canteen.domain.dto.OrderDishDTO;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MyOrderServiceImpl extends ServiceImpl<MyOrderMapper, MyOrder> implements IMyOrderService {
+public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> implements IMyOrderService {
 
     private final MyTableMapper myTableService;
     private final DishMapper myDishMapper;
@@ -134,7 +135,7 @@ public class MyOrderServiceImpl extends ServiceImpl<MyOrderMapper, MyOrder> impl
                     .le("ORDER_TIME", tempOrderDTO.getOrderTime().plusSeconds(1));
             MyOrder myOrder = myOrderMapper.selectOne(queryWrapper);
             myOrder.setConsumptionRecordId(consumptionRecordId);
-            if (myOrderMapper.updateById(myOrder) <= 0)
+            if (myOrderMapper.updateByMultiId(myOrder) <= 0)
                 return ResponseResult.fail("修改失败");
         }
         return ResponseResult.success("新增成功");

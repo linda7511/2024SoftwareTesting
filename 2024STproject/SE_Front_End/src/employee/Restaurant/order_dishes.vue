@@ -621,6 +621,7 @@ export default {
                 .catch(error => {
                     this.selectedTableOrder = [];
                     ElMessage.error('无点餐用例');
+                    console.log("问题在哪里");
                     console.log(error);
                     return;
                 })
@@ -816,6 +817,8 @@ export default {
             Promise.all(promises)
                 .then(responses => {
                     const isAllSuccess = responses.every(response => response);
+                    console.log("点成功了吗")
+                    console.log(responses)
                     if (isAllSuccess) {
                         this.addOrderVisible = false;
                         ElMessage.success(`为${this.selectedTable.tableId}桌添加菜品成功`);
@@ -856,6 +859,8 @@ export default {
             });
             Promise.all(promises)
                 .then(responses => {
+                    console.log("点单update了吗")
+                    console.log(responses)
                     const isAllSuccess = responses.every(response => response);
                     if (isAllSuccess) {
                         ElMessage.success('确认成功');
@@ -918,6 +923,7 @@ export default {
                                 }
                             })
                             const userInfo = getUserInfo();
+                            console.log("dishPK是什么啊啊啊")
                             console.log({
                                 roomNumber: roomNum,
                                 consumeAmount: this.sumCost,
@@ -927,10 +933,12 @@ export default {
                             post(`/api/MyOrder/AddCateringRecord`, {
                                 roomNumber: roomNum,
                                 consumeAmount: this.sumCost,
-                                    tableId: this.selectedTable.tableId,
-                                    orderMessages: dishPK,
+                                tableId: this.selectedTable.tableId,
+                                orderMessages: dishPK,
                             })
                                 .then(response => {
+                                    console.log("1111点菜信息")
+                                    console.log(orderMessages);
                                     if (!response) {
                                         ElMessage.error('挂账失败，请稍后重试');
 

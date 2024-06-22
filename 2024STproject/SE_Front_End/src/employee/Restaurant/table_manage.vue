@@ -87,9 +87,9 @@
                             <el-button icon="edit" @click="handleEdit(scope.$index, scope.row, $event)" v-permiss="15" class="edit-button">
                                 编辑
                             </el-button>
-                            <el-button icon="delete" @click="handleDelete(scope.$index, $event)" v-permiss="16" class="delete-button">
+                            <!-- <el-button icon="delete" @click="handleDelete(scope.$index, $event)" v-permiss="16" class="delete-button">
                                 删除
-                            </el-button>
+                            </el-button> -->
                         </template>
                     </el-table-column>      
                 </el-table>

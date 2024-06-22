@@ -1,5 +1,53 @@
 <template>
   <div class="flex-wrapper">
+    <div class="right-flex-item">
+      <n-card class="upload-box" size="small" header-style="padding: .8em; margin-bottom: .8em;">
+        <template #header>
+          Program Test
+        </template>
+        <p class="subtitle">选择被测程序</p>
+        <n-space vertical>
+          <!-- <n-select class="cascader-input" v-model:value="version" :options="props.versions"
+            placeholder="Click to select" @update:value="handleVersionSelect" /> -->
+          <n-upload accept=".js" :max="1" @change="handleFileChange">
+            <n-button>
+              <n-icon name="upload"></n-icon>
+              上传.js文件
+            </n-button>
+          </n-upload>
+        </n-space>
+        <!-- <p class="subtitle">Step 02. 选择用例集</p>
+        <n-space vertical>
+          <n-cascader class="cascader-input" v-model:value="usecaseType" :options="options" :show-path="false"
+            :check-strategy="'child'" placeholder="Click to select" />
+        </n-space> -->
+        <p class="subtitle">上传用例集</p>
+        <n-space justify="center">
+          <n-upload ref="uploadRef" action="#" :default-upload="false" accept=".csv" @change="handleUpload">
+            <n-upload-dragger class="upload-content">
+              <div style="margin-bottom: 12px">
+                <n-icon size="2.5em" :depth="3">
+                  <cloud-download-outline />
+                </n-icon>
+              </div>
+              <n-text>
+                点击或者拖动文件到该区域来上传
+              </n-text>
+              <n-p depth="3" style="margin-top: .5em;">
+                请上传 .csv 格式的文件<br />(若上面已经选择了测试集，请直接跳转到第三步)
+              </n-p>
+            </n-upload-dragger>
+          </n-upload>
+        </n-space>
+        <p class="subtitle">运行测试集</p>
+        <n-space justify="center">
+          <n-button class="upload-btn" :disabled="!((fileListLength || usecaseType) && file)" @click="handleTesting"
+            strong type="primary">
+            开始测试
+          </n-button>
+        </n-space>
+      </n-card>
+    </div>
     <div class="left-flex-item">
       <n-tabs v-model:value="currTab">
         <n-tab-pane name="Question" tab="问题描述">
@@ -58,54 +106,6 @@
           </n-card>
         </n-tab-pane>
       </n-tabs>
-    </div>
-    <div class="right-flex-item">
-      <n-card class="upload-box" size="small" header-style="padding: .8em; margin-bottom: .8em;">
-        <template #header>
-          Program Test
-        </template>
-        <p class="subtitle">Step 01. 选择被测程序</p>
-        <n-space vertical>
-          <!-- <n-select class="cascader-input" v-model:value="version" :options="props.versions"
-            placeholder="Click to select" @update:value="handleVersionSelect" /> -->
-          <n-upload accept=".js" :max="1" @change="handleFileChange">
-            <n-button>
-              <n-icon name="upload"></n-icon>
-              上传.js文件
-            </n-button>
-          </n-upload>
-        </n-space>
-        <p class="subtitle">Step 02. 选择用例集</p>
-        <n-space vertical>
-          <n-cascader class="cascader-input" v-model:value="usecaseType" :options="options" :show-path="false"
-            :check-strategy="'child'" placeholder="Click to select" />
-        </n-space>
-        <p class="subtitle">Step 03. 上传用例集 (Optional)</p>
-        <n-space justify="center">
-          <n-upload ref="uploadRef" action="#" :default-upload="false" accept=".csv" @change="handleUpload">
-            <n-upload-dragger class="upload-content">
-              <div style="margin-bottom: 12px">
-                <n-icon size="2.5em" :depth="3">
-                  <cloud-download-outline />
-                </n-icon>
-              </div>
-              <n-text>
-                点击或者拖动文件到该区域来上传
-              </n-text>
-              <n-p depth="3" style="margin-top: .5em;">
-                请上传 .csv 格式的文件<br />(若上面已经选择了测试集，请直接跳转到第三步)
-              </n-p>
-            </n-upload-dragger>
-          </n-upload>
-        </n-space>
-        <p class="subtitle">Step 04. 运行测试集</p>
-        <n-space justify="center">
-          <n-button class="upload-btn" :disabled="!((fileListLength || usecaseType) && file)" @click="handleTesting"
-            strong type="primary">
-            开始测试
-          </n-button>
-        </n-space>
-      </n-card>
     </div>
   </div>
 </template>
@@ -360,7 +360,14 @@ const executeTesting = (dataContent: Row[]) => {
     }
     // let myTime = new Date()
     // row.Time = myTime.toLocaleString()
-    if (row.实际输出 === row.预期输出) {
+    if (isFinite(row.预期输出)) {
+        // value 是有限数字，但不一定是整数
+        row.预期输出 = String(row.预期输出);
+    }
+    if (isFinite(row.实际输出)) {
+        row.实际输出 = String(row.实际输出);
+    }
+    if (row.实际输出=== row.预期输出) {
       row.是否通过 = `TRUE`
     } else {
       row.是否通过 = `FALSE`
@@ -385,7 +392,7 @@ function handleUpload(options: { fileList: string | any[] }) {
     reader.onload = (event) => {
       if (event.target && event.target.result) {
         const encodedContent = event.target.result;
-        const decoder = new TextDecoder('gbk'); // 请根据实际情况选择文件的编码
+        const decoder = new TextDecoder('utf-8 '); // 请根据实际情况选择文件的编码
         const utf8Content = decoder.decode(encodedContent);
         Papa.parse(utf8Content, {
           complete: (res) => {
