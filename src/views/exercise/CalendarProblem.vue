@@ -127,7 +127,7 @@ const versions = [
 const ecOption: ECOption = {
   xAxis: {
     type: "category",
-    data: ["0.0.0版本", "0.1.0版本", "0.2.0版本"],
+    data: ["v0.0.0边界值","v0.0.0等价类", "v0.1.0等价类","v0.1.0等价类"],
   },
   yAxis: [
     {
@@ -161,7 +161,7 @@ const ecOption: ECOption = {
     {
       data: [
         {
-          value: 81.5,
+          value: 89.74,
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: "#83bff6" },
@@ -171,12 +171,12 @@ const ecOption: ECOption = {
           },
         },
         {
-          value: 99.4,
+          value: 72.95,
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: "#83bff6" },
-              { offset: 0.8, color: "#188df0" },
-              { offset: 1, color: "#188df0" },
+              { offset: 0, color: "#31B7D9" },
+              { offset: 0.8, color: "#70C6DB" },
+              { offset: 1, color: "#A3CED9" },
             ]),
           },
         },
@@ -190,6 +190,16 @@ const ecOption: ECOption = {
             ]),
           },
         },
+        {
+          value: 100,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#31B7D9" },
+              { offset: 0.8, color: "#70C6DB" },
+              { offset: 1, color: "#A3CED9" },
+            ]),
+          },
+        },
       ],
       type: "bar",
       yAxisIndex: 0,
@@ -198,37 +208,43 @@ const ecOption: ECOption = {
         valueFormatter: (value) => value + " %",
       },
     },
-    {
-      data: [
-        {
-          value: 137,
-          itemStyle: {
-            color: "green",
-          },
-        },
-        {
-          value: 167,
-          itemStyle: {
-            color: "green",
-          },
-        },
-        {
-          value: 168,
-          itemStyle: {
-            color: "green",
-          },
-        },
-      ],
-      type: "line",
-      yAxisIndex: 1,
-      markPoint: {
-        data: [{ type: "max", name: "Max" }],
-      },
-      name: "测试用例通过数",
-      tooltip: {
-        valueFormatter: (value) => value + " 个",
-      },
-    },
+    // {
+    //   data: [
+    //     {
+    //       value: 35,
+    //       itemStyle: {
+    //         color: "green",
+    //       },
+    //     },
+    //     {
+    //       value: 213,
+    //       itemStyle: {
+    //         color: "green",
+    //       },
+    //     },
+    //     {
+    //       value: 39,
+    //       itemStyle: {
+    //         color: "green",
+    //       },
+    //     },
+    //     {
+    //       value: 292,
+    //       itemStyle: {
+    //         color: "green",
+    //       },
+    //     },
+    //   ],
+    //   type: "line",
+    //   yAxisIndex: 1,
+    //   markPoint: {
+    //     data: [{ type: "max", name: "Max" }],
+    //   },
+    //   name: "测试用例通过数",
+    //   tooltip: {
+    //     valueFormatter: (value) => value + " 个",
+    //   },
+    // },
   ],
 }
 
@@ -256,22 +272,29 @@ const iteration = {
     {
       key: '0',
       version: '0.0.0',
-      dataset: '强健壮等价类',
-      result: '通过137/167',
-      bug: '当处于当月最后一天、当月为12月时的年月计算逻辑有误'
+      dataset: '边界值',
+      result: '通过35/39',
+      bug: '能被100整除不一定是闰年'
     },
     {
       key: '1',
-      version: '0.1.0',
-      dataset: '强健壮等价类',
-      result: '通过167/168',
-      bug: '闰年判断逻辑有误，整百年的特殊情况误判'
+      version: '0.0.0',
+      dataset: '等价类',
+      result: '通过213/292',
+      bug: '能被100整除不一定是闰年'
     },
     {
       key: '2',
-      version: '0.2.0',
-      dataset: '强健壮等价类',
-      result: '通过168/168',
+      version: '0.1.0',
+      dataset: '边界值',
+      result: '通过39/39',
+      bug: '测试全部通过'
+    },
+    {
+      key: '3',
+      version: '0.1.0',
+      dataset: '等价类',
+      result: '通过213/292',
       bug: '测试全部通过'
     }
   ]

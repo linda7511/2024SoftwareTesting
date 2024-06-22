@@ -1,54 +1,57 @@
-<script setup lang="ts">
-import { NTabs, NTabPane } from 'naive-ui'
-import SystemHomeVue from '../../components/systemTesting/SystemHome.vue'
-import sdk from '@stackblitz/sdk'
-import { onMounted } from 'vue'
-
-const tabs = [
-  {
-    name: 'home',
-    tab: '系统测试'
-  }
-]
-
-onMounted(() => {
-  // 嵌入stackblitz项目
-  const stackblitz = document.getElementById('stackblitz')
-
-  sdk.embedProjectId(
-    stackblitz as HTMLElement,
-    'vitest-dev-vitest-sahho6',
-    {
-      forceEmbedLayout: true,
-      openFile: 'README.md',
-      view: 'editor',
-      height: '99.5%',
-      width: '100%',
-      theme: 'light',
-      //initialPath: '/__vitest__',
-    }
-  )
-    .then(() => {
-      const iframe = document.getElementById('stackblitz')
-      iframe?.setAttribute('style', 'border: none;border: 1px solid #eee;')
-    })
-})
-</script>
-
 <template>
-  <div class="root-wrapper">
-    <div class="left-part">
-      <n-tabs type="line" animated default-value="home">
-        <n-tab-pane v-for="item in tabs" :name="item.name" :tab="item.tab">
-          <system-home-vue v-if="item.name === 'home'" />
-        </n-tab-pane>
-      </n-tabs>
-    </div>
-    <div class="right-part">
-      <div id="stackblitz" />
+  <div>
+    <label for="testSelect">选择测试用例：</label>
+    <select id="testSelect" v-model="selectedTest">
+      <option v-for="test in testList" :key="test" :value="test">
+        {{ test }}
+      </option>
+    </select>
+    <button @click="runSelectedTest">执行测试</button>
+    <div v-if="testResults">
+      <h3>测试结果：</h3>
+      <pre>{{ testResults }}</pre>
     </div>
   </div>
 </template>
+
+
+<!-- <script setup lang="ts">
+import axios from 'axios';
+import { ref } from 'vue';
+import { NTabs, NTabPane } from 'naive-ui'
+import SystemHomeVue from '../../components/systemTesting/SystemHome.vue'
+import sdk from '@stackblitz/sdk'
+import { onMounted } from 'vue' -->
+
+<!-- // const tabs = [
+//   {
+//     name: 'home',
+//     tab: '系统测试'
+//   }
+// ] -->
+
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      selectedTest: '',
+      testList: ['宾客入住', '管理宾客信息', '空房查询','桌位管理'], // 测试用例列表
+      testResults: null,
+    };
+  },
+  methods: {
+    async runSelectedTest() {
+      try {
+        const response = await axios.post('http://127.0.0.1:12345/run-systemTest', { test: this.selectedTest });
+        this.testResults = response.data;
+      } catch (error) {
+        console.error('Error running system test:', error);
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
 .root-wrapper {

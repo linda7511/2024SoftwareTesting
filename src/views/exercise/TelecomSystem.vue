@@ -9,7 +9,7 @@
     </template>
     <template #detail>
       本问题输入变量为本月通话时间、用户本年度未按时缴费次数两个。
-      <br />① 首先判断本月通话时长是否符合取值范围，通话时间应该≥0，且不能超过一个月的分钟数，这里为了方便直接使用31*24*60=44640作为最大值；
+      <br />① 首先判断本月通话时长是否符合取值范围，通话时间应该≥0，且不能超过一个月的分钟数，这里使用31*24*60=44640作为最大值；
       <br />② 之后还需要判断用户本年度未按时缴费次数是否符合取值范围，显然次数应该≥0，同时在本月之前本年度最多有11个月缴费，所以未按时缴费次数≤11；
       <br />③ 计算用户本月的通话时长处于哪一个折扣等级；
       <br />④ 计算用户本年度未按时缴费次数是否超出当前折扣等级容许的未按时缴费次数。
@@ -81,34 +81,29 @@ const options = [
 ]
 
 // 实现代码
-const code = `function telecomSystem(callingTime: number, count: number): string {
-    if (callingTime < 0 || callingTime > 31 * 24 * 60) {
-        return "通话时长数值越界"
+const code = `function tele_toll_system(t, n) {
+    if(t<0||n<0||t>44640||n>11)
+        return "数值越界";
+    if(t>=0&&t<=60){
+        var result= n<=1?25+0.15*t*(1-0.01):25+0.15*t;
+        return result.toFixed(2);
     }
-    if (count < 0 || count > 11) {
-        return "未按时缴费次数越界"
+    if(t>60&&t<=120){
+        var result= n<=2?25+0.15*t*(1-0.015):25+0.15*t;
+        return result.toFixed(2);
     }
-
-    let maxNum: number[] = [1, 2, 3, 3, 6]
-    let level: number = getLevel(callingTime)
-    if (count <= maxNum[level - 1]) {
-        return String(Math.round((25 + 0.15 * callingTime * (1 - (level + 1) * 0.005)) * 100) / 100)
-    } else {
-        return String(Math.round((25 + 0.15 * callingTime) * 100) / 100)
+    if(t>120&&t<=180){
+        var result= n<=3?25+0.15*t*(1-0.02):25+0.15*t;
+        return result.toFixed(2);
     }
-}
-
-function getLevel(time: number): number {
-    if (time > 0 && time <= 60)
-        return 1
-    else if (time > 60 && time <= 120)
-        return 2
-    else if (time > 120 && time <= 180)
-        return 3
-    else if (time > 180 && time <= 300)
-        return 4
-    else
-        return 5
+    if(t>180&&t<=300){
+        var result= n<=3?25+0.15*t*(1-0.025):25+0.15*t;
+        return result.toFixed(2);
+    }
+    if(t>300){
+        var result= n<=6?25+0.15*t*(1-0.03):25+0.15*t;
+        return result.toFixed(2);
+    }
 }`
 
 // 程序版本集
@@ -131,7 +126,7 @@ const versions = [
 const ecOption: ECOption = {
   xAxis: {
     type: 'category',
-    data: ['0.0.0版本', '0.1.0版本', '0.2.0版本']
+    data: ['v0.1.0边界值','等价类','决策表','最优表', 'v0.1.0边界值','等价类','决策表','最优表']
   },
   yAxis: [
     {
@@ -164,8 +159,8 @@ const ecOption: ECOption = {
   series: [
     {
       data: [
-        {
-          value: 79.6,
+      {
+          value: 63.46,//
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: "#83bff6" },
@@ -175,12 +170,32 @@ const ecOption: ECOption = {
           }
         },
         {
-          value: 93.9,
+          value: 67.57,//
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: "#83bff6" },
-              { offset: 0.8, color: "#188df0" },
-              { offset: 1, color: "#188df0" },
+              { offset: 0, color: "#31B7D9" },
+              { offset: 0.8, color: "#70C6DB" },
+              { offset: 1, color: "#A3CED9" },
+            ]),
+          }
+        },
+        {
+          value: 45.45,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#8F72A3" },
+              { offset: 0.8, color: "#7C44A5" },
+              { offset: 1, color: "#6B18A6" },
+            ]),
+          }
+        },
+        {
+          value: 32.35,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#76769A" },
+              { offset: 0.8, color: "#4E4F9F" },
+              { offset: 1, color: "#383AA5" },
             ]),
           }
         },
@@ -193,7 +208,37 @@ const ecOption: ECOption = {
               { offset: 1, color: "#188df0" },
             ]),
           }
-        }
+        },
+        {
+          value: 100,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#31B7D9" },
+              { offset: 0.8, color: "#70C6DB" },
+              { offset: 1, color: "#A3CED9" },
+            ]),
+          }
+        },
+        {
+          value: 100,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#8F72A3" },
+              { offset: 0.8, color: "#7C44A5" },
+              { offset: 1, color: "#6B18A6" },
+            ]),
+          }
+        },
+        {
+          value: 100,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: "#76769A" },
+              { offset: 0.8, color: "#4E4F9F" },
+              { offset: 1, color: "#383AA5" },
+            ]),
+          }
+        },
       ],
       type: 'bar',
       yAxisIndex: 0,
@@ -202,39 +247,39 @@ const ecOption: ECOption = {
         valueFormatter: (value) => value + ' %'
       }
     },
-    {
-      data: [
-        {
-          value: 39,
-          itemStyle: {
-            color: 'green'
-          }
-        },
-        {
-          value: 46,
-          itemStyle: {
-            color: 'green'
-          }
-        },
-        {
-          value: 49,
-          itemStyle: {
-            color: 'green'
-          }
-        }
-      ],
-      type: 'line',
-      yAxisIndex: 1,
-      markPoint: {
-        data: [
-          { type: 'max', name: 'Max' }
-        ]
-      },
-      name: '测试用例通过数',
-      tooltip: {
-        valueFormatter: (value) => value + ' 个'
-      }
-    }
+    // {
+    //   data: [
+    //     {
+    //       value: 39,
+    //       itemStyle: {
+    //         color: 'green'
+    //       }
+    //     },
+    //     {
+    //       value: 46,
+    //       itemStyle: {
+    //         color: 'green'
+    //       }
+    //     },
+    //     {
+    //       value: 49,
+    //       itemStyle: {
+    //         color: 'green'
+    //       }
+    //     }
+    //   ],
+    //   type: 'line',
+    //   yAxisIndex: 1,
+    //   markPoint: {
+    //     data: [
+    //       { type: 'max', name: 'Max' }
+    //     ]
+    //   },
+    //   name: '测试用例通过数',
+    //   tooltip: {
+    //     valueFormatter: (value) => value + ' 个'
+    //   }
+    // }
   ]
 }
 
@@ -256,22 +301,53 @@ const iteration = {
   data: [{
     key: '0',
     version: '0.0.0',
-    dataset: '强健壮等价类',
-    result: '通过39/49',
-    bug: '获取最大允许未按时缴费次数时索引值有误'
+    dataset: '边界值',
+    result: '通过33/52',
+    bug: '折扣率计算错误'
   }, {
     key: '1',
-    version: '0.1.0',
-    dataset: '强健壮等价类',
-    result: '通过46/49',
-    bug: '最终计算结果没有保留两位小数'
+    version: '0.0.0',
+    dataset: '等价类',
+    result: '通过39/41',
+    bug: '折扣率计算错误'
   }, {
     key: '2',
-    version: '0.2.0',
-    dataset: '强健壮等价类',
-    result: '通过49/49',
+    version: '0.0.0',
+    dataset: '决策表',
+    result: '通过5/11',
+    bug: '折扣率计算错误'
+  },{
+    key: '3',
+    version: '0.0.0',
+    dataset: '最优测试用例',
+    result: '通过22/68',
+    bug: '折扣率计算错误'
+  },
+  {
+    key: '4',
+    version: '0.1.0',
+    dataset: '边界值',
+    result: '通过52/52',
     bug: '测试全部通过'
-  }]
+  }, {
+    key: '5',
+    version: '0.1.0',
+    dataset: '等价类',
+    result: '通过41/41',
+    bug: '测试全部通过'
+  }, {
+    key: '6',
+    version: '0.1.0',
+    dataset: '决策表',
+    result: '通过11/11',
+    bug: '测试全部通过'
+  },{
+    key: '72',
+    version: '0.1.0',
+    dataset: '最优测试用例',
+    result: '通过68/68',
+    bug: '测试全部通过'
+  },]
 }
 </script>
 

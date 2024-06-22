@@ -8,7 +8,9 @@
       算法思想
     </template>
     <template #detail>
-      最开始需要判断的是主机的销售数量，当这个变量值为-1时是对系统发出进行月度统计的指令，当值不为-1时才继续进行如下计算：
+      电脑销售系统，主机（25￥单位价格，每月最多销售的数量为70），显示器（30￥单位价格，每月最多销售数量为80），外设（45￥单位价格，每月最多销售的数量为90）；
+      每个销售员每月至少销售一台完整的机器，当系统的主机这个变量接受到-1值的时候，系统自动统计该销售员本月的销售总额。当销售额小于等于1000（包括1000）按照10%提佣金，
+      当销售额在1000-1800之间（包括1800）的时候按照15%提佣金，当销售额大于1800时按照20%提佣金。
       <br />① 因为每月至少销售出一台整机，首先判断各配件的销售数量是否大于1；
       <br />② 分别判断各配件是否销售数量超过各自的最大数量；
       <br />③ 若①②条件均成立，可进行销售额计算；
@@ -44,31 +46,23 @@ const options = [
 ]
 
 // 实现代码
-const code = `function computerSelling(host: number, monitor: number, peripheral: number): string {
-    if (host == -1) {
-        return "系统开始统计月度销售额"
-    }
-    if (host <= 0 || monitor <= 0 || peripheral <= 0) {
-        return "数据非法，各部件销售数量不能小于1"
-    }
-    if (host > 70) {
-        return "数据非法，主机销售数量不能超过70"
-    }
-    if (monitor > 80) {
-        return "数据非法，显示器销售数量不能超过80"
-    }
-    if (peripheral > 90) {
-        return "数据非法，外设销售数量不能超过90"
+const code = `function computerSelling(host, monitor, peripheral){
+    if (host <= 0 || monitor <= 0 || peripheral <= 0 || host > 70 || monitor > 80 || peripheral > 90) {
+        return "数值越界"
     }
 
-    let totalSales: number = host * 25 + monitor * 30 + peripheral * 45;
+    let totalSales = host * 25 + monitor * 30 + peripheral * 45;
+    let commission
     if (totalSales <= 1000) {
-        return String(totalSales * 0.1)
+        commission = totalSales * 0.1;
     } else if (totalSales <= 1800) {
-        return String(totalSales * 0.15)
+        commission = totalSales * 0.15;
     } else {
-        return String(totalSales * 0.2)
+        commission = totalSales * 0.2;
     }
+
+    return String(commission)
+
 }`
 
 // 程序版本集
@@ -87,7 +81,7 @@ const versions = [
 const ecOption: ECOption = {
   xAxis: {
     type: 'category',
-    data: ['0.0.0版本', '0.1.0版本']
+    data: ['v0.0.0', 'v0.1.0']
   },
   yAxis: [
     {
@@ -121,7 +115,7 @@ const ecOption: ECOption = {
     {
       data: [
         {
-          value: 95,
+          value: 94.20,
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: "#83bff6" },
@@ -151,13 +145,13 @@ const ecOption: ECOption = {
     {
       data: [
         {
-          value: 19,
+          value: 65,
           itemStyle: {
             color: 'green'
           }
         },
         {
-          value: 20,
+          value: 69,
           itemStyle: {
             color: 'green'
           }
@@ -196,14 +190,14 @@ const iteration = {
   data: [{
     key: '0',
     version: '0.0.0',
-    dataset: '健壮边界值',
-    result: '通过19/20',
-    bug: '没有考虑主机销售数量为-1时进行统计月度销售额的特殊情况'
+    dataset: '边界值',
+    result: '通过65/69',
+    bug: '主机数量不能小于1'
   }, {
     key: '1',
     version: '0.1.0',
-    dataset: '健壮边界值',
-    result: '通过20/20',
+    dataset: '边界值',
+    result: '通过69/69',
     bug: '测试全部通过'
   }]
 }
