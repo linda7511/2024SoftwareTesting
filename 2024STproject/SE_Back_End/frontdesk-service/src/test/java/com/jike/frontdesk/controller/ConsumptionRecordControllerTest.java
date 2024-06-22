@@ -52,7 +52,7 @@ class ConsumptionRecordControllerTest {
     @Test
     @DisplayName("测试ConsumptionRecordController中的getByRoomNum方法,数据存在")
     void getByRoomNum_Success() throws Exception {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/ConsumptionRecord/GetByRoomNum/101")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/ConsumptionRecord/GetByRoomNum/303")
                         .accept(MediaType.APPLICATION_JSON_UTF8)) // Set the Accept header to application/json with UTF-8
                 .andExpect(status().isOk())
                 .andReturn();
@@ -60,14 +60,14 @@ class ConsumptionRecordControllerTest {
         String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8); // Decode the response as UTF-8
         ResponseResult<List<ConsumptionRecord>> response = objectMapper.readValue(content, new TypeReference<ResponseResult<List<ConsumptionRecord>>>() {});
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"); // Formatter with seconds
         assertTrue(response.getStatus());
         assertEquals(1, response.getData().size());
-        assertEquals(1, response.getData().get(0).getRoomId());
+        assertEquals(15, response.getData().get(0).getConsumeId());
+        assertEquals(15, response.getData().get(0).getRoomId());
+        assertEquals(7, response.getData().get(0).getConsumeAmount());
+        assertEquals("2022-10-26T08:08:08", response.getData().get(0).getConsumeTime().format(formatter)); // Expected value with seconds
         assertEquals("饮料", response.getData().get(0).getConsumeType());
-        assertEquals(1, response.getData().get(0).getConsumeId());
-        assertEquals(8, response.getData().get(0).getConsumeAmount());
-        assertEquals("2022-08-21T21:13:54", response.getData().get(0).getConsumeTime().format(formatter));
     }
 
 
@@ -84,7 +84,7 @@ class ConsumptionRecordControllerTest {
     @Test
     @DisplayName("测试ConsumptionRecordController中的getByID方法,数据存在")
     void getByID_Success() throws Exception {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/ConsumptionRecord/GetByID/130911200104059966")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/ConsumptionRecord/GetByID/210112200412144453")
                         .accept(new MediaType("application", "json", StandardCharsets.UTF_8))) // Set the Accept header to application/json with UTF-8
                 .andExpect(status().isOk())
                 .andReturn();
@@ -95,11 +95,11 @@ class ConsumptionRecordControllerTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"); // Formatter with seconds
         assertTrue(response.getStatus());
         assertEquals(1, response.getData().size());
-        assertEquals(10, response.getData().get(0).getConsumeId());
-        assertEquals(10, response.getData().get(0).getRoomId());
-        assertEquals(8, response.getData().get(0).getConsumeAmount());
-        assertEquals("2023-05-21T13:26:11", response.getData().get(0).getConsumeTime().format(formatter)); // Expected value with seconds
-        assertEquals("零食", response.getData().get(0).getConsumeType());
+        assertEquals(15, response.getData().get(0).getConsumeId());
+        assertEquals(15, response.getData().get(0).getRoomId());
+        assertEquals(7, response.getData().get(0).getConsumeAmount());
+        assertEquals("2022-10-26T08:08:08", response.getData().get(0).getConsumeTime().format(formatter)); // Expected value with seconds
+        assertEquals("饮料", response.getData().get(0).getConsumeType());
     }
 
     @Test

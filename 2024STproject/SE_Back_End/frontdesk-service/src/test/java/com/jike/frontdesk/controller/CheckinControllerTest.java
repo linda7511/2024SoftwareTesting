@@ -91,7 +91,7 @@ class CheckinControllerTest {
     @DisplayName("测试CheckinController中的getCheckinInfoByRoomNum方法，该数据存在")
     public void testGetCheckinInfoByRoomNum_Success() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/api/Checkin/GetByRoomNum/101"))
+        MvcResult result = mockMvc.perform(get("/api/Checkin/GetByRoomNum/204"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -101,10 +101,10 @@ class CheckinControllerTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         assertTrue(response.getStatus());
         assertEquals(1, response.getData().size());
-        assertEquals(26, response.getData().get(0).getCustomerId());
-        assertEquals(1, response.getData().get(0).getRoomId());
-        assertEquals("2023-06-15T12:00:00", response.getData().get(0).getCheckinTime().format(formatter));
-        assertEquals("2023-06-16T12:00:00", response.getData().get(0).getCheckoutTime().format(formatter));
+        assertEquals(1, response.getData().get(0).getCustomerId());
+        assertEquals(10, response.getData().get(0).getRoomId());
+        assertEquals("2023-07-28T12:00:00", response.getData().get(0).getCheckinTime().format(formatter));
+        assertEquals("2023-07-31T12:00:00", response.getData().get(0).getCheckoutTime().format(formatter));
     }
     @Test
     @DisplayName("测试CheckinController中的getCheckinInfoByRoomNum方法，该数据不存在")
