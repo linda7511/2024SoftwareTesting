@@ -810,13 +810,15 @@ export default {
                     dishId: dish.dishId,
                     consumptionRecordId:0,
                     orderTime: new Date(),
-                    orderStatus: '未确认',
+                    orderStatus: '点单失败',
                 });
             });
 
             Promise.all(promises)
                 .then(responses => {
                     const isAllSuccess = responses.every(response => response);
+                    console.log("点成功了吗")
+                    console.log(responses)
                     if (isAllSuccess) {
                         this.addOrderVisible = false;
                         ElMessage.success(`为${this.selectedTable.tableId}桌添加菜品成功`);
@@ -836,7 +838,7 @@ export default {
         },
         // 点单未确认 可选 点单成功不可选
         orderSelectionCheck(row) {
-            return row.orderStatus === '未确认';
+            return row.orderStatus === '点单失败';
         },
         // 确认所选的点单
         handleConfirmDish() {
@@ -857,6 +859,8 @@ export default {
             });
             Promise.all(promises)
                 .then(responses => {
+                    console.log("点单update了吗")
+                    console.log(responses)
                     const isAllSuccess = responses.every(response => response);
                     if (isAllSuccess) {
                         ElMessage.success('确认成功');
@@ -919,6 +923,7 @@ export default {
                                 }
                             })
                             const userInfo = getUserInfo();
+                            console.log("dishPK是什么啊啊啊")
                             console.log({
                                 roomNumber: roomNum,
                                 consumeAmount: this.sumCost,
@@ -928,10 +933,12 @@ export default {
                             post(`/api/MyOrder/AddCateringRecord`, {
                                 roomNumber: roomNum,
                                 consumeAmount: this.sumCost,
-                                    tableId: this.selectedTable.tableId,
-                                    orderMessages: dishPK,
+                                tableId: this.selectedTable.tableId,
+                                orderMessages: dishPK,
                             })
                                 .then(response => {
+                                    console.log("1111点菜信息")
+                                    console.log(orderMessages);
                                     if (!response) {
                                         ElMessage.error('挂账失败，请稍后重试');
 

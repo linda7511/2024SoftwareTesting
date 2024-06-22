@@ -174,7 +174,7 @@ interface TableItem {
 }
 
 const query = reactive({
-    searchType: 'applicationType',
+    searchType: 'employeeId',
     keyword: '',
 });
 

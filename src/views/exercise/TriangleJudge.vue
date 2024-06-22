@@ -9,10 +9,8 @@
     </template>
     <template #detail>
       本题输入变量有a, b, c三个，首先判断其两边之和是否大于第三边，若大于则判断可以构成三角形，再进一步判断该三角形是什么三角形；否则不能构成三角形。
-      <br />① 从键盘输入三角形的三条边；
-      <br />② 判断两边之和是否大于第三边，若条件成立则判断可构成三角形，否则判断其不能构成三角形；
-      <br />③ 继续判断三角形类型；
-      <br />④ 首先判断其是否三边相等，条件成立则判断其为等边三角形；否则判断其是否有两边相等，条件成立则判断其为等腰三角形；否则判断其为普通三角形。
+      <br />① 判断两边之和是否大于第三边，若条件成立则判断可构成三角形，否则判断其不能构成三角形；
+      <br />② 若能构成三角形，继续判断三角形类型。首先判断其是否三边相等，条件成立则判断其为等边三角形；否则判断其是否有两边相等，条件成立则判断其为等腰三角形；否则判断其为普通三角形。
     </template>
   </test-panel>
 </template>
@@ -66,24 +64,24 @@ const options = [
 ]
 
 // 实现代码
-const code = `function triangleJudge(a: number, b: number, c: number): string {
-    if (a <= 0 || b <= 0 || c <= 0 ||  a > 200 || b > 200 || c > 200){
-        return '边长数值越界'
+const code = `function triangleJudge(a, b, c) {
+    if (a <= 0 || b <= 0 || c <= 0 || a > 200 || b > 200 || c > 200) {
+        return '边长数值越界';
     }
     if (
         a + b > c &&
         a + c > b &&
         b + c > a
     ) {
-        if (a === b && a === c){
-            return '该三角形是等边三角形'
-        }else if (a === b || a === c || b === c){
-            return '该三角形是等腰三角形'
-        }else {
-            return '该三角形是普通三角形'
+        if (a === b && a === c) {
+            return '该三角形是等边三角形';
+        } else if (a === b || a === c || b === c) {
+            return '该三角形是等腰三角形';
+        } else {
+            return '该三角形是普通三角形';
         }
     } else {
-        return '所给三边数据不能构成三角形'
+        return '所给三边数据不能构成三角形';
     }
 }`
 
@@ -103,7 +101,7 @@ const versions = [
 const ecOption: ECOption = {
   xAxis: {
     type: 'category',
-    data: ['0.0.0版本', '0.1.0版本']
+    data: ['v0.0.0边界值','v0.0.0等价类', 'v0.1.0边界值','v0.1.0等价类']
   },
   yAxis: [
     {
@@ -137,12 +135,22 @@ const ecOption: ECOption = {
     {
       data: [
         {
-          value: 97.2,
+          value: 90.38,//
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: "#83bff6" },
               { offset: 0.8, color: "#188df0" },
               { offset: 1, color: "#188df0" },
+            ]),
+          }
+        },
+        {
+          value: 67.57,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#31B7D9" },
+              { offset: 0.8, color: "#70C6DB" },
+              { offset: 1, color: "#A3CED9" },
             ]),
           }
         },
@@ -153,6 +161,16 @@ const ecOption: ECOption = {
               { offset: 0, color: "#83bff6" },
               { offset: 0.8, color: "#188df0" },
               { offset: 1, color: "#188df0" },
+            ]),
+          }
+        },
+        {
+          value: 100,//
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#31B7D9" },
+              { offset: 0.8, color: "#70C6DB" },
+              { offset: 1, color: "#A3CED9" },
             ]),
           }
         }
@@ -167,13 +185,25 @@ const ecOption: ECOption = {
     {
       data: [
         {
-          value: 35,
+          value: 47,
           itemStyle: {
             color: 'green'
           }
         },
         {
-          value: 36,
+          value: 25,
+          itemStyle: {
+            color: 'green'
+          }
+        },
+        {
+          value: 52,
+          itemStyle: {
+            color: 'green'
+          }
+        },
+        {
+          value: 37,
           itemStyle: {
             color: 'green'
           }
@@ -212,14 +242,26 @@ const iteration = {
   data: [{
     key: '0',
     version: '0.0.0',
-    dataset: '强健壮等价类',
-    result: '通过35/36',
-    bug: '等腰与等边条件判断逻辑顺序有误'
+    dataset: '边界值',
+    result: '通过47/52',
+    bug: '忽略了三角形边长不能为0'
   }, {
     key: '1',
     version: '0.1.0',
-    dataset: '强健壮等价类',
-    result: '通过36/36',
+    dataset: '边界值',
+    result: '通过52/52',
+    bug: '测试全部通过'
+  },{
+    key: '2',
+    version: '0.0.0',
+    dataset: '等价类',
+    result: '通过25/37',
+    bug: '忽略了三角形边长不能为0'
+  },{
+    key: '3',
+    version: '0.1.0',
+    dataset: '等价类',
+    result: '通过37/37',
     bug: '测试全部通过'
   }]
 }

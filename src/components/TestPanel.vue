@@ -362,10 +362,11 @@ const executeTesting = (dataContent: Row[]) => {
     // row.Time = myTime.toLocaleString()
     if (isFinite(row.预期输出)) {
         // value 是有限数字，但不一定是整数
-        row.预期输出 = String(row.预期输出);
+        console.log("预期输出：",row.预期输出)
+        row.预期输出 = String(row.预期输出).trim();
     }
     if (isFinite(row.实际输出)) {
-        row.实际输出 = String(row.实际输出);
+        row.实际输出 = String(row.实际输出).trim();
     }
     if (row.实际输出=== row.预期输出) {
       row.是否通过 = `TRUE`

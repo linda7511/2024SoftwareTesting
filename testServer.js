@@ -4,7 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const { Builder } = require('selenium-webdriver');
+const port = 12345;//3000
 
 app.use(express.json());
 app.use(cors());
@@ -216,6 +217,33 @@ app.post('/run-integrationTests', (req, res) => {
   // });
 });
 
+app.post('/run-systemTest', async (req, res) => {
+  const { test } = req.body;
+  const scriptPath = `./test/${test}.js`;
+
+  console.log(`Received request to run system test: ${test}`);
+
+  try {
+    // 使用 Mocha 命令行工具执行测试脚本
+    exec(`npx mocha ${scriptPath}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error running system test: ${error}`);
+        return res.status(500).json({ success: false, error: error.message });
+      }
+      if (stderr) {
+        console.error(`Standard Error: ${stderr}`);
+        return res.status(500).json({ success: false, error: stderr });
+      }
+      console.log(stdout); // 打印测试输出
+      res.json({ success: true, message: 'Test executed successfully' });
+    });
+  } catch (error) {
+    console.error('Error running system test:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  //console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://127.0.0.1:${port}`);
 });
