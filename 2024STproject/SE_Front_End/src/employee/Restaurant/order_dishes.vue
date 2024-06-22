@@ -809,7 +809,7 @@ export default {
                     dishId: dish.dishId,
                     consumptionRecordId:0,
                     orderTime: new Date(),
-                    orderStatus: '未确认',
+                    orderStatus: '点单失败',
                 });
             });
 
@@ -835,7 +835,7 @@ export default {
         },
         // 点单未确认 可选 点单成功不可选
         orderSelectionCheck(row) {
-            return row.orderStatus === '未确认';
+            return row.orderStatus === '点单失败';
         },
         // 确认所选的点单
         handleConfirmDish() {
