@@ -9,11 +9,7 @@ import com.jike.canteen.service.IBookService;
 import com.jike.common.utils.BeanUtils;
 import com.jike.common.utils.CollUtils;
 import com.jike.common.utils.ResponseResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.dao.DataAccessException;
@@ -22,7 +18,11 @@ import org.springframework.dao.DataAccessException;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * book类的具体实现
+ *
+ * @author dyc
+ */
 @Service
 public class BookServiceImpl extends MppServiceImpl<BookMapper, Book> implements IBookService {
 
@@ -48,18 +48,18 @@ public class BookServiceImpl extends MppServiceImpl<BookMapper, Book> implements
         }
     }
 
-    public ResponseResult<?> updateBookInfo(@RequestBody BookDTO BookDTO) {
+    public ResponseResult<?> updateBookInfo(@RequestBody BookDTO bookDTO) {
         try {
-            if(BookDTO.getBookNumber()<1){
+            if(bookDTO.getBookNumber()<1){
                 return ResponseResult.fail("修改失败");
             }
-            if(!Objects.equals(BookDTO.getBookStatus(), "预订成功") && !Objects.equals(BookDTO.getBookStatus(), "预订失败")){
+            if(!Objects.equals(bookDTO.getBookStatus(), "预订成功") && !Objects.equals(bookDTO.getBookStatus(), "预订失败")){
                 return ResponseResult.fail("修改失败");
             }
-            if (BookDTO.getCustomerId()<=0||BookDTO.getCustomerId()>50){
+            if (bookDTO.getCustomerId()<=0||bookDTO.getCustomerId()>50){
                 return ResponseResult.fail("修改失败");
             }
-            Book book = BeanUtils.copyBean(BookDTO, Book.class);
+            Book book = BeanUtils.copyBean(bookDTO, Book.class);
             if (this.updateByMultiId(book))
                 return ResponseResult.success("修改成功");
             else{

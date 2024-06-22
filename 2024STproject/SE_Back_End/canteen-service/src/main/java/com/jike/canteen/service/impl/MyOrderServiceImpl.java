@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import com.jike.canteen.domain.dto.CateringRecordDTO;
 import com.jike.canteen.domain.dto.MyOrderDTO;
@@ -18,7 +17,6 @@ import com.jike.canteen.mapper.MyTableMapper;
 
 import com.jike.canteen.service.FrontdeskClient;
 import com.jike.canteen.service.IMyOrderService;
-import com.jike.canteen.service.IMyTableService;
 import com.jike.common.utils.BeanUtils;
 import com.jike.common.utils.ResponseResult;
 import org.springframework.stereotype.Service;
@@ -29,14 +27,44 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * myorder类的具体实现
+ *
+ * @author dyc
+ */
 @Service
 public class MyOrderServiceImpl extends MppServiceImpl<MyOrderMapper, MyOrder> implements IMyOrderService {
 
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     private final MyTableMapper myTableService;
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     private final DishMapper myDishMapper;
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     private final MyOrderMapper myOrderMapper;
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     private final FrontdeskClient frontdeskClient;
 
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     public MyOrderServiceImpl(MyTableMapper myTableService, DishMapper myDishMapper, MyOrderMapper myOrderMapper, FrontdeskClient frontdeskClient) {
         this.myTableService = myTableService;
         this.myDishMapper = myDishMapper;

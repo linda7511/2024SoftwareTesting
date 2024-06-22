@@ -16,7 +16,11 @@ import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
-
+/**
+ * dish类的具体实现
+ *
+ * @author dyc
+ */
 @Service
 public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements IDishService{
     public ResponseResult<Void> deleteDishById(@PathVariable("DishId") int dishId) {
@@ -39,21 +43,21 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements ID
         }
         return ResponseResult.success(BeanUtils.copyList(dishes, DishDTO.class));
     }
-    public ResponseResult<String> updateDish(@RequestBody DishDTO DishDTO) {
+    public ResponseResult<String> updateDish(@RequestBody DishDTO dishDTO) {
         try {
-            if(DishDTO.getDishName()==null || DishDTO.getDishName().equals("")){
+            if(dishDTO.getDishName()==null || "".equals(dishDTO.getDishName())){
                 return ResponseResult.fail("修改失败");
             }
-            if(DishDTO.getDishTaste()==null || DishDTO.getDishTaste().equals("")){
+            if(dishDTO.getDishTaste()==null || "".equals(dishDTO.getDishTaste())){
                 return ResponseResult.fail("修改失败");
             }
-            if(DishDTO.getDishId()<=0){
+            if(dishDTO.getDishId()<=0){
                 return ResponseResult.fail("修改失败");
             }
-            if(DishDTO.getDishPrice()<=0){
+            if(dishDTO.getDishPrice()<=0){
                 return ResponseResult.fail("修改失败");
             }
-            Dish dish = BeanUtils.copyBean(DishDTO, Dish.class);
+            Dish dish = BeanUtils.copyBean(dishDTO, Dish.class);
             if (this.updateById(dish))
                 return ResponseResult.success("修改成功");
             return ResponseResult.fail("修改失败");

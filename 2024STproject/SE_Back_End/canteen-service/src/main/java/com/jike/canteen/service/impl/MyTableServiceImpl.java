@@ -12,19 +12,37 @@ import com.jike.canteen.service.IMyTableService;
 import com.jike.common.utils.BeanUtils;
 import com.jike.common.utils.CollUtils;
 import com.jike.common.utils.ResponseResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-
+/**
+ * mytable类的具体实现
+ *
+ * @author dyc
+ */
 @Service
 public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> implements IMyTableService {
 
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     private final MyTableMapper myTableMapper;
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     private final MyOrderMapper myOrderMapper;
 
+    /**
+     * mytable类的具体实现
+     *
+     * @author dyc
+     */
     public MyTableServiceImpl(MyTableMapper myTableMapper, MyOrderMapper myOrderMapper) {
         this.myTableMapper = myTableMapper;
         this.myOrderMapper = myOrderMapper;
