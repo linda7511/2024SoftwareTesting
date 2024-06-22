@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-public interface IMyOrderService extends IService<MyOrder> {
+public interface IMyOrderService extends IMppService<MyOrder> {
 
     // 添加新订单
     public ResponseResult<String> addMyOrder(@RequestBody MyOrderDTO myOrderDTO);
