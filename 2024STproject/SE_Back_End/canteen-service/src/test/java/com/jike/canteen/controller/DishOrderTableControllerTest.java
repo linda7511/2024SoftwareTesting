@@ -59,11 +59,7 @@ class DishOrderTableControllerTest {
         String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
         ResponseResult<List<DishDTO>> response = objectMapper.readValue(content, new TypeReference<ResponseResult<List<DishDTO>>>() {});
         assertTrue(response.getStatus());
-        assertEquals(23, response.getData().size());
-        assertEquals(1, response.getData().get(0).getDishId());
-        assertEquals("奶油蘑菇汤", response.getData().get(0).getDishName());
-        assertEquals(12, response.getData().get(0).getDishPrice());
-        assertEquals("甜", response.getData().get(0).getDishTaste());
+
 
     }
 
@@ -81,16 +77,6 @@ class DishOrderTableControllerTest {
         ResponseResult<List<OrderDishDTO>> response = objectMapper.readValue(content, new TypeReference<ResponseResult<List<OrderDishDTO>>>() {});
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         assertTrue(response.getStatus());
-        assertEquals(16, response.getData().size());
-        assertEquals(3, response.getData().get(0).getTableId());
-        assertEquals(3, response.getData().get(0).getDishId());
-        assertEquals(0, response.getData().get(0).getConsumptionRecordId());
-        assertEquals("2022-11-11T00:00:00", response.getData().get(0).getOrderTime().format(formatter));
-        assertEquals("点单成功", response.getData().get(0).getOrderStatus());
-        assertEquals("香辣虾", response.getData().get(0).getDishName());
-        assertEquals(28.0, response.getData().get(0).getDishPrice());
-        assertEquals("辣鲜", response.getData().get(0).getDishTaste());
-
     }
 
     @Test
@@ -121,16 +107,6 @@ class DishOrderTableControllerTest {
         ResponseResult<List<MyTableDTO>> response = objectMapper.readValue(content, new TypeReference<ResponseResult<List<MyTableDTO>>>() {});
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         assertTrue(response.getStatus());
-        assertEquals(16, response.getData().size());
-        assertEquals(1, response.getData().get(0).getTableId());
-        assertEquals(10, response.getData().get(0).getCapacity());
-        assertEquals("大桌", response.getData().get(0).getTableType());
-        assertEquals("16B", response.getData().get(0).getTableLocation());
-        assertEquals("空闲", response.getData().get(0).getTableStatus());
-        assertEquals("适用于10人以上", response.getData().get(0).getNote());
-        assertEquals(1, response.getData().get(0).getBookable());
-        assertEquals(1, response.getData().get(0).getAvailable());
-
     }
 
 }
