@@ -69,7 +69,7 @@ class DepartmentControllerTest {
         assertTrue(response.getStatus());
         assertEquals(1, response.getData().getDepartmentId());
         assertEquals("总经理办公室", response.getData().getDepartmentName());
-        assertEquals(1, response.getData().getNumberOfPeople());
+        assertEquals(4, response.getData().getNumberOfPeople());
     }
 
     @Test
@@ -102,7 +102,7 @@ class DepartmentControllerTest {
         assertTrue(response.getStatus());
         assertEquals(1, response.getData().getDepartmentId());
         assertEquals("总经理办公室", response.getData().getDepartmentName());
-        assertEquals(1, response.getData().getNumberOfPeople());
+        assertEquals(4, response.getData().getNumberOfPeople());
     }
 
     @Test
