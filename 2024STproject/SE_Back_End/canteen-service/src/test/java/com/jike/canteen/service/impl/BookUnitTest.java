@@ -27,6 +27,82 @@ public class BookUnitTest {
     private CombinedController combinedController;
 
     @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Book/BoundaryAddFalse.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，添加失败")
+    public void registerNewBooking_False(Integer tableId, Integer customerId, LocalDateTime bookTime, Integer bookNumber,
+                                                 String bookStatus, String bookRequement, String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId);
+        bookDTO.setCustomerId(customerId);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Book/BoundaryAddTrue.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，添加成功")
+    public void registerNewBooking_True(int tableId, int customerId, LocalDateTime bookTime, int bookNumber,
+                                           String bookStatus, String bookRequement, String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId);
+        bookDTO.setCustomerId(customerId);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> response = bookService.addBookInfo(bookDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Book/BoundaryUpdateFalse.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，修改失败")
+    public void amendBookingInfo_False(Integer tableId, Integer customerId, LocalDateTime bookTime, Integer bookNumber,
+                                               String bookStatus, String bookRequement, String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Book/BoundaryUpdateTrue.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，修改成功")
+    public void amendBookingInfo_True(Integer tableId, Integer customerId, LocalDateTime bookTime, Integer bookNumber,
+                                         String bookStatus, String bookRequement, String bookNote) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTableId(tableId != null ? tableId : 0);
+        bookDTO.setCustomerId(customerId != null ? customerId : 0);
+        bookDTO.setBookTime(bookTime);
+        bookDTO.setBookNumber(bookNumber != null ? bookNumber : 0);
+        bookDTO.setBookStatus(bookStatus);
+        bookDTO.setBookRequement(bookRequement);
+        bookDTO.setBookNote(bookNote);
+
+        ResponseResult<?> updateResponse = bookService.updateBookInfo(bookDTO);
+        assertEquals("修改成功", updateResponse.getMessage());
+    }
+
+
+
+
+
+
+    @ParameterizedTest
     @CsvFileSource(resources = "/UnitTest/Book/BookAddSuccess.csv", numLinesToSkip = 1)
     @DisplayName("测试添加预订信息成功")
     public void registerNewBooking_Success(int tableId, int customerId, LocalDateTime bookTime, int bookNumber,

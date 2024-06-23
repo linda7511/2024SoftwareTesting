@@ -27,6 +27,63 @@ public class DishUnitTest {
     @Autowired
     private CombinedController combinedController;
 
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Dish/BoundaryAddFalse.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，添加失败")
+    public void createDishWithInvalidPrice_False(String dishName, double dishPrice, String dishTaste) {
+        NewDishDTO newDishDTO = new NewDishDTO();
+        newDishDTO.setDishName(dishName);
+        newDishDTO.setDishPrice(dishPrice);
+        newDishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.addDish(newDishDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Dish/BoundaryAddTrue.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，添加成功")
+    public void createNewDish_True(String dishName, double dishPrice, String dishTaste) {
+        NewDishDTO newDishDTO = new NewDishDTO();
+        newDishDTO.setDishName(dishName);
+        newDishDTO.setDishPrice(dishPrice);
+        newDishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.addDish(newDishDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Dish/BoundaryUpdateTrue.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，更新成功")
+    public void modifyDishDetails_True(int dishId, String dishName, double dishPrice, String dishTaste) {
+        DishDTO dishDTO = new DishDTO();
+        dishDTO.setDishId(dishId);
+        dishDTO.setDishName(dishName);
+        dishDTO.setDishPrice(dishPrice);
+        dishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.updateDish(dishDTO);
+        assertEquals("修改成功", response.getMessage());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/Dish/BoundaryUpdateFalse.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，更新失败")
+    public void modifyDishWithInvalidPrice_False(int dishId, String dishName, double dishPrice, String dishTaste) {
+        DishDTO dishDTO = new DishDTO();
+        dishDTO.setDishId(dishId);
+        dishDTO.setDishName(dishName);
+        dishDTO.setDishPrice(dishPrice);
+        dishDTO.setDishTaste(dishTaste);
+
+        ResponseResult<String> response = combinedController.updateDish(dishDTO);
+        assertEquals("修改失败", response.getMessage());
+    }
+
+
+
+
+
     @Step("测试成功删除菜品 [{dishId}]")
     @ParameterizedTest
     @CsvFileSource(resources = "/UnitTest/Dish/DishDeleteSuccess.csv", numLinesToSkip = 1)
@@ -134,4 +191,7 @@ public class DishUnitTest {
         ResponseResult<String> response = combinedController.addDish(newDishDTO);
         assertEquals("新增失败", response.getMessage());
     }
+
+
+
 }

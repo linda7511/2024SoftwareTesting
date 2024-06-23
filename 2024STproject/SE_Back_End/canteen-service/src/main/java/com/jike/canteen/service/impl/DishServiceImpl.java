@@ -54,7 +54,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements ID
             if(dishDTO.getDishId()<=0){
                 return ResponseResult.fail("修改失败");
             }
-            if(dishDTO.getDishPrice()<=0){
+            if(dishDTO.getDishPrice()<=0||dishDTO.getDishPrice()>1000){
                 return ResponseResult.fail("修改失败");
             }
             Dish dish = BeanUtils.copyBean(dishDTO, Dish.class);
@@ -68,7 +68,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements ID
     }
     public ResponseResult<String> addDish(@RequestBody NewDishDTO newDishDTO) {
         try {
-            if(newDishDTO.getDishPrice()<=0){
+            if(newDishDTO.getDishPrice()<=0||newDishDTO.getDishPrice()>1000){
                 return ResponseResult.fail("新增失败");
             }
             Dish dish = BeanUtils.copyBean(newDishDTO, Dish.class);

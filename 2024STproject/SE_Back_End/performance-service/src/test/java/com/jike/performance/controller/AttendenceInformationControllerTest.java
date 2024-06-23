@@ -81,7 +81,7 @@ class AttendenceInformationControllerTest {
     @DisplayName("测试AttendenceInformationController中的getAttendanceInformationByEmployeeId方法,该数据不存在")
     public void testGetAttendanceInformationByEmployeeId_F1() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/api/AttendanceInformation/GetByEmpId/10"))
+        MvcResult result = mockMvc.perform(get("/api/AttendanceInformation/GetByEmpId/99"))
                 .andExpect(status().isOk())
                 .andReturn();
 

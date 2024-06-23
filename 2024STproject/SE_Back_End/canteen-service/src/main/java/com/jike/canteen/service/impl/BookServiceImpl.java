@@ -28,7 +28,7 @@ public class BookServiceImpl extends MppServiceImpl<BookMapper, Book> implements
 
     public ResponseResult<?> addBookInfo(@RequestBody BookDTO bookDTO) {
         try {
-            if(bookDTO.getBookNumber()<1){
+            if(bookDTO.getBookNumber()<1||bookDTO.getBookNumber()>100) {
                 return ResponseResult.fail("新增失败");
             }
             if(!Objects.equals(bookDTO.getBookStatus(), "预订成功") && !Objects.equals(bookDTO.getBookStatus(), "预订失败")){
@@ -50,7 +50,7 @@ public class BookServiceImpl extends MppServiceImpl<BookMapper, Book> implements
 
     public ResponseResult<?> updateBookInfo(@RequestBody BookDTO bookDTO) {
         try {
-            if(bookDTO.getBookNumber()<1){
+            if(bookDTO.getBookNumber()<1||bookDTO.getBookNumber()>100){
                 return ResponseResult.fail("修改失败");
             }
             if(!Objects.equals(bookDTO.getBookStatus(), "预订成功") && !Objects.equals(bookDTO.getBookStatus(), "预订失败")){
