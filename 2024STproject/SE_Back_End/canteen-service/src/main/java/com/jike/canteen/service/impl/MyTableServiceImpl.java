@@ -82,7 +82,8 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
 
     public ResponseResult<String> updateTable(@RequestBody MyTableDTO myTableDTO) {
         if (myTableDTO.getTableId() == 0 || myTableDTO.getTableLocation() == null || myTableDTO.getNote() == null ||
-                !isValidtableStatus(myTableDTO.getTableStatus()) || !isValidtableType(myTableDTO.getTableType())) {
+                !isValidtableStatus(myTableDTO.getTableStatus()) || !isValidtableType(myTableDTO.getTableType())
+            ||myTableDTO.getCapacity()<1 ||myTableDTO.getCapacity()>100) {
             return ResponseResult.fail("修改失败");
         }
         MyTable myTable = BeanUtils.copyBean(myTableDTO, MyTable.class);
@@ -94,7 +95,8 @@ public class MyTableServiceImpl extends ServiceImpl<MyTableMapper, MyTable> impl
 
     public ResponseResult<String> addTable(@RequestBody NewMyTableDTO newMyTableDTO) {
         if (newMyTableDTO.getTableLocation() == null || newMyTableDTO.getNote() == null ||
-                !isValidtableStatus(newMyTableDTO.getTableStatus()) || !isValidtableType(newMyTableDTO.getTableType())) {
+                !isValidtableStatus(newMyTableDTO.getTableStatus()) || !isValidtableType(newMyTableDTO.getTableType())
+                ||newMyTableDTO.getCapacity()<1 ||newMyTableDTO.getCapacity()>100) {
             return ResponseResult.fail("新增失败");
         }
 

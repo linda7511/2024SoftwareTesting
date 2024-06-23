@@ -27,6 +27,81 @@ public class MyTableUnitTest {
     @Autowired
     private IMyTableService myTableService;
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/MyTable/BoundaryAddTrue.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，添加成功")
+    public void registerNewTable_True(int capacity,String tabletype,String tablelocation,
+                               String tableStatus,String note,int bookable, int available) {
+        NewMyTableDTO NewMyTableDTO = new NewMyTableDTO();
+        NewMyTableDTO.setCapacity(capacity);
+        NewMyTableDTO.setTableType(tabletype);
+        NewMyTableDTO.setTableLocation(tablelocation);
+        NewMyTableDTO.setTableStatus(tableStatus);
+        NewMyTableDTO.setNote(note);
+        NewMyTableDTO.setBookable(bookable);
+        NewMyTableDTO.setAvailable(available);
+
+        ResponseResult<?> response = myTableService.addTable(NewMyTableDTO);
+        assertEquals("新增成功", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/MyTable/BoundaryAddFalse.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，添加成功")
+    public void registerNewTable_False(int capacity,String tabletype,String tablelocation,
+                                      String tableStatus,String note,int bookable, int available) {
+        NewMyTableDTO NewMyTableDTO = new NewMyTableDTO();
+        NewMyTableDTO.setCapacity(capacity);
+        NewMyTableDTO.setTableType(tabletype);
+        NewMyTableDTO.setTableLocation(tablelocation);
+        NewMyTableDTO.setTableStatus(tableStatus);
+        NewMyTableDTO.setNote(note);
+        NewMyTableDTO.setBookable(bookable);
+        NewMyTableDTO.setAvailable(available);
+
+        ResponseResult<?> response = myTableService.addTable(NewMyTableDTO);
+        assertEquals("新增失败", response.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/MyTable/BoundaryUpdateTrue.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，修改成功")
+    public void amendTableInfo_True(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                       String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改成功", updateResponse.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/UnitTest/MyTable/BoundaryUpdateFalse.csv", numLinesToSkip = 1)
+    @DisplayName("边界值测试，修改失败")
+    public void amendTableInfo_False(Integer tableId,Integer capacity,String tabletype,String tablelocation,
+                                    String tableStatus,String note,Integer bookable, Integer available) {
+        MyTableDTO MyTableDTO = new MyTableDTO();
+        MyTableDTO.setTableId(tableId != null ? tableId : 0);
+        MyTableDTO.setCapacity(capacity);
+        MyTableDTO.setTableType(tabletype);
+        MyTableDTO.setTableLocation(tablelocation);
+        MyTableDTO.setTableStatus(tableStatus);
+        MyTableDTO.setNote(note);
+        MyTableDTO.setBookable(bookable);
+        MyTableDTO.setAvailable(available);
+
+        ResponseResult<?> updateResponse = myTableService.updateTable(MyTableDTO);
+        assertEquals("修改失败", updateResponse.getMessage());
+    }
+
+
 
     @ParameterizedTest
     @CsvFileSource(resources = "/UnitTest/MyTable/MyTableAddSuccess.csv", numLinesToSkip = 1)
