@@ -145,7 +145,7 @@ const ecOption: ECOption = {
           }
         },
         {
-          value: 67.57,//
+          value: 90,//
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: "#31B7D9" },
@@ -191,7 +191,7 @@ const ecOption: ECOption = {
           }
         },
         {
-          value: 25,
+          value: 36,
           itemStyle: {
             color: 'green'
           }
@@ -203,7 +203,7 @@ const ecOption: ECOption = {
           }
         },
         {
-          value: 37,
+          value: 40,
           itemStyle: {
             color: 'green'
           }
@@ -255,13 +255,13 @@ const iteration = {
     key: '2',
     version: '0.0.0',
     dataset: '等价类',
-    result: '通过25/37',
+    result: '通过36/40',
     bug: '忽略了三角形边长不能为0'
   },{
     key: '3',
     version: '0.1.0',
     dataset: '等价类',
-    result: '通过37/37',
+    result: '通过40/40',
     bug: '测试全部通过'
   }]
 }
