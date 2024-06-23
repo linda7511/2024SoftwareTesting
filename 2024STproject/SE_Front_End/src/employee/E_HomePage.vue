@@ -131,11 +131,11 @@ export default {
                     key: '2',
                     title: '前台接待',
                     subs: [
-                        {
-                            index: '/e_home/frontReception/settlement_bill',
-                            key: '2.1',
-                            title: '结算帐单',
-                        },
+                        // {
+                        //     index: '/e_home/frontReception/settlement_bill',
+                        //     key: '2.1',
+                        //     title: '结算帐单',
+                        // },
                         {
                             index: '/e_home/frontReception/resident_checkin',
                             key: '2.2',
@@ -151,11 +151,11 @@ export default {
                             key: '2.4',
                             title: '宾客信息',
                         },
-                        {
-                            index: '/e_home/frontReception/process_order',
-                            key: '2.5',
-                            title: '处理订单',
-                        },
+                        // {
+                        //     index: '/e_home/frontReception/process_order',
+                        //     key: '2.5',
+                        //     title: '处理订单',
+                        // },
                     ]
                 },
                 // {
