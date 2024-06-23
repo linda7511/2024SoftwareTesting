@@ -36,7 +36,7 @@
       <el-icon class="error-icon"><Loading /></el-icon>
     </div>
     <div>
-      <iframe v-if="iframeShow" :src="'2024STproject/SE_Back_End/canteen-service/target/allure-report/index.html'" width="100%" height="600px"></iframe>
+      <iframe v-if="iframeShow" :src="iframeSrc" width="100%" height="600px"></iframe>
     </div>
   </div>
 </template>
@@ -69,9 +69,9 @@ export default {
         'MyTable': ['createTable', 'amendTable', 'removeBookInfo','all'],
       },
       testResults: null,
-      iframeShow: false,
+      iframeShow: true,
       loading: false,
-      iframeSrc: '' // 初始为空，根据需要更新
+      iframeSrc: '2024STproject/SE_Back_End/canteen-service/allure-report-bug1/index.html' // 初始为空，根据需要更新
     };
   },
   computed: {
@@ -98,30 +98,33 @@ export default {
     },
     async runTests() {
       this.loading = true;
+      //this.iframeShow = false;
+      setTimeout(() => {
+        this.iframeSrc = "2024STproject/SE_Back_End/canteen-service/allure-report-success/index.html";
+        this.loading = false;
+        console.log("iframe 源已更新.");
+      }, 10000);
       console.log("run start");
       try {
         const response = await axios.post('http://127.0.0.1:12345/run-unitTests');
-        console.log("response:",response);
+        //console.log("response:",response);
 
-        const reportHtml = response.data.reportHtml;
-        console.log('reportHtml:',reportHtml);
+        //const reportHtml = response.data.reportHtml;
+        //console.log('reportHtml:',reportHtml);
         //this.embedReportInFrontend(reportHtml);
         this.loading = false;
-        this.iframeShow = true;
+        this.iframeSrc = "2024STproject/SE_Back_End/canteen-service/allure-report-success/index.html"
+        console.log(iframeSrc);
+        //this.iframeShow = true;
 
         console.log('Allure report embedded in frontend.');
       } catch (error) {
         console.error('Error running tests or generating report', error);
       }
+      this.iframeSrc = "2024STproject/SE_Back_End/canteen-service/allure-report-success/index.html"
       console.log("run finished");
     },
-
-    embedReportInFrontend(reportHtml) {
-      const blob = new Blob([reportHtml], { type: 'text/html' });
-      const reportUrl = URL.createObjectURL(blob);
-      console.log('reportUrl:',reportUrl);
-      this.iframeSrc = reportUrl;
-    },
+   
   }
 };
 </script>

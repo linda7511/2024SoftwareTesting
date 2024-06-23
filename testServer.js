@@ -4,7 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
-const { Builder } = require('selenium-webdriver');
 const port = 12345;//3000
 
 app.use(express.json());
@@ -32,7 +31,7 @@ app.post('/run-unitTests', (req, res) => {
     // });
 
     console.log('projectPath:',projectPath);
-    exec('mvn test -Dtest=com.jike.canteen.service.impl.**', { cwd: projectPath },(error, stdout, stderr) => {
+    exec('mvn test', { cwd: projectPath },(error, stdout, stderr) => {
         if (error) {
             console.error('Error during mvn clean test:', error);
             return res.status(500).json({ error: 'Error running tests' });
@@ -52,15 +51,16 @@ app.post('/run-unitTests', (req, res) => {
 
           const allureReportPath = path.join(__dirname, '2024STproject/SE_Back_End/canteen-service', 'target', 'allure-report', 'index.html');
 
-          fs.readFile(allureReportPath, 'utf8', (readError, data) => {
-            if (readError) {
-              console.error('Error reading report file:', readError);
-              return res.status(500).json({ error: 'Error reading report file' });
-            }
+          // fs.readFile(allureReportPath, 'utf8', (readError, data) => {
+          //   if (readError) {
+          //     console.error('Error reading report file:', readError);
+          //     return res.status(500).json({ error: 'Error reading report file' });
+          //   }
 
-            console.log('reportHtml:', data);
-            res.json({ reportHtml: data });
-          });
+          //   console.log('reportHtml:', data);
+          //   res.json({ reportHtml: data });
+          // });
+          console.log("test finished");
         });
       });
 });
@@ -217,31 +217,31 @@ app.post('/run-integrationTests', (req, res) => {
   // });
 });
 
-app.post('/run-systemTest', async (req, res) => {
-  const { test } = req.body;
-  const scriptPath = `./test/${test}.js`;
+// app.post('/run-systemTest', async (req, res) => {
+//   const { test } = req.body;
+//   const scriptPath = `./test/${test}.js`;
 
-  console.log(`Received request to run system test: ${test}`);
+//   console.log(`Received request to run system test: ${test}`);
 
-  try {
-    // 使用 Mocha 命令行工具执行测试脚本
-    exec(`npx mocha ${scriptPath}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error running system test: ${error}`);
-        return res.status(500).json({ success: false, error: error.message });
-      }
-      if (stderr) {
-        console.error(`Standard Error: ${stderr}`);
-        return res.status(500).json({ success: false, error: stderr });
-      }
-      console.log(stdout); // 打印测试输出
-      res.json({ success: true, message: 'Test executed successfully' });
-    });
-  } catch (error) {
-    console.error('Error running system test:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
+//   try {
+//     // 使用 Mocha 命令行工具执行测试脚本
+//     exec(`npx mocha ${scriptPath}`, (error, stdout, stderr) => {
+//       if (error) {
+//         console.error(`Error running system test: ${error}`);
+//         return res.status(500).json({ success: false, error: error.message });
+//       }
+//       if (stderr) {
+//         console.error(`Standard Error: ${stderr}`);
+//         return res.status(500).json({ success: false, error: stderr });
+//       }
+//       console.log(stdout); // 打印测试输出
+//       res.json({ success: true, message: 'Test executed successfully' });
+//     });
+//   } catch (error) {
+//     console.error('Error running system test:', error);
+//     res.status(500).json({ success: false, error: error.message });
+//   }
+// });
 
 app.listen(port, () => {
   //console.log(`Server running at http://localhost:${port}`);
